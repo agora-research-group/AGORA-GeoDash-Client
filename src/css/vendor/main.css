@@ -95,6 +95,11 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+html,
+body {
+    height: 100%;
+}
+
 * {
     box-sizing: border-box;
 }
