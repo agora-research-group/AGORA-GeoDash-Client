@@ -95,21 +95,17 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+* {
+    box-sizing: border-box;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.map {
+    width: 100%;
+    display: table;
+    margin: 0;
+    max-width: none;
+    height: 100vh;
+}
 
 /* ==========================================================================
    Helper classes
