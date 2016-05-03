@@ -17,9 +17,13 @@
         <link rel="stylesheet" href="css/vendor/main.css">
     </head>
     <body>
-        <p>AGORA Geodash Client v3</p>
+        <div data-ng-view></div>
 
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/vendor/angular/angular.min.js" type="text/javascript" charset="utf-8" defer></script>
+        <script src="js/vendor/angular/angular-route.min.js" type="text/javascript" charset="utf-8" defer></script>
+
+        <script src="js/app.js" type="text/javascript" charset="utf-8" defer></script>
+
+        <script src="js/controllers/HomeController.js" type="text/javascript" charset="utf-8" defer></script>
     </body>
 </html>
