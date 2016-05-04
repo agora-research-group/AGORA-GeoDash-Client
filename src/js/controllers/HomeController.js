@@ -5,7 +5,7 @@
         .module('agora-geodash')
         .controller('HomeController', HomeController);
 
-    function HomeController($log) {
+    function HomeController($log, $http) {
         $log.debug('HomeController');
 
         var map = new ol.Map({
@@ -22,6 +22,12 @@
             minZoom: 4
           })
         });
+
+        var success = function(response) {
+          alert(response.data.text);
+        }
+
+        $http.get("http://localhost:8080/hello/world").then(success)
     }
 
 }(window.angular, window.ol));

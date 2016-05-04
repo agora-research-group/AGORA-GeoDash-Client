@@ -1,5 +1,9 @@
+var b = 2;
+
 ;(function(window, document, angular, undefine) {
     'use strict';
+
+    var a = 1;
 
     angular
         .module('agora-geodash', [
