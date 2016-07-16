@@ -1,15 +1,16 @@
 var b = 2;
-
 ;(function(window, document, angular, undefine) {
     'use strict';
 
     var a = 1;
 
-    angular
-        .module('agora-geodash', [
+    angular    	  	
+    	.module('agora-geodash', [
             'ngRoute'
         ])
 
+        .constant('initUrl', 'http://localhost/AGORA-GeoDash-client/src/')
+        
         .config(function($routeProvider, $locationProvider) {
             $routeProvider
                 .when('/', {
