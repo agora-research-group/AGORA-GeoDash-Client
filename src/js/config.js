@@ -1,0 +1,1 @@
+var iconUrl = 'http://www.agora.icmc.usp.br:8080/AgoraDEV/img/sensor.png';
