@@ -6,7 +6,7 @@ var b = 2;
 
     angular    	  	
     	.module('agora-geodash', [
-            'ngRoute'
+            'ngRoute', 'ui.bootstrap'
         ])
 
         .constant('initUrl', 'http://localhost/AGORA-GeoDash-client/src/')

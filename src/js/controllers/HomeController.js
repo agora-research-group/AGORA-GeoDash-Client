@@ -8,7 +8,6 @@
     function HomeController($log, $http) {
         $log.debug('HomeController');
 
-        //create the style
         var iconStyle = new ol.style.Style({
           image: new ol.style.Icon(({
             opacity: 0.75,
@@ -23,13 +22,18 @@
           source: vectorSource,
           style: iconStyle,
         });
-        
-        //===== MAP
+       
         var map = new ol.Map({
             target: 'map',
-            controls: ol.control.defaults().extend([
-  	           new ol.control.FullScreen(),
-  	           new ol.control.LayerSwitcher(),
+            logo: false,
+            controls: ol.control.defaults({
+        		zoom: false,
+        		attribution: false,
+            }).extend([
+				new ol.control.Zoom({
+				    className: 'custom-zoom'
+				}),
+				new ol.control.LayerSwitcher(),
   		    ]),
             layers: [
 	  			new ol.layer.Group({

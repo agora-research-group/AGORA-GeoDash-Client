@@ -89,6 +89,9 @@ html, body {
 * {
 	box-sizing: border-box;
 }
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 /* ==========================================================================
    Map
    ========================================================================== */
@@ -105,15 +108,65 @@ html, body {
 }
 
 .map:fullscreen {
+	position: absolute;
 	height: 100%;
 }
 
+.ol-rotate {
+  top: 3em;
+}
+
+.nav-bar {
+	width: 50%; 
+	margin: 0 auto;
+	position: relative;
+	padding-top: 9px;
+    z-index: 1;
+}
+
+.nav-shadow {
+	-webkit-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
+	box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
+}
+
 .map {
+	position: absolute;
 	width: 100%;
-	display: table;
-	margin: 0;
-	max-width: none;
-	height: 99vh;
+	height: 100%;
+	z-index: 0;
+}
+
+.navbar-icons {
+	float: left;
+	padding: 15px 10px;
+	line-height: 20px;
+}
+
+.form-input {
+	display: block;
+	width: 300px;
+	height: 34px;
+	font-size: 15px;
+	background-color: transparent;
+	border: none;
+	border-color: transparent;
+}
+
+.form-input:focus { 
+	outline: none;
+}
+
+.custom-zoom{
+    bottom: .5em;
+    left: .5em;
+}
+.custom-zoom button, .custom-zoom button:active, .custom-zoom button:focus, .custom-zoom button:hover{
+    background-color: rgba(40, 40, 40, .7);
+    font-size : 20px;
+    -webkit-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
+	box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
 }
 
 /* ==========================================================================
