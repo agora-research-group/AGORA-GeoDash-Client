@@ -15,7 +15,7 @@
             src: iconUrl,
           })),
         });
-        
+		
         var vectorSource = new ol.source.Vector();
         var vector = new ol.layer.Vector({
           title: 'Sensors',
@@ -82,6 +82,33 @@
           var features = new ol.format.GeoJSON().readFeatures(json);
           vectorSource.addFeatures(features);
         });
+        	
+		// select interaction working on "click"
+		var select = new ol.interaction.Select({
+			condition: ol.events.condition.singleClick,
+			style: new ol.style.Style({
+			  image: new ol.style.Icon(({
+				opacity: 0.40,
+				scale: 0.05,
+				src: iconUrl,
+			  })),
+			}),
+		});
+		
+        map.addInteraction(select);
+        select.on('select', function(e) {
+			
+			var selected = e.selected;
+			var feature = null;
+						
+			if (selected.length) {
+				selected.forEach(function(feature){
+					feature = feature;
+					console.log(feature);
+				});
+			}
+			
+		});
         
         var success = function(response) {
           alert(response.data.text);
