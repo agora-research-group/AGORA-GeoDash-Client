@@ -90,7 +90,9 @@ html, body {
 	box-sizing: border-box;
 }
 
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.nav, .pagination, .carousel, .panel-title a {
+	cursor: pointer;
+}
 
 /* ==========================================================================
    Map
@@ -113,48 +115,48 @@ html, body {
 }
 
 .ol-rotate {
-  top: 3em;
+	top: 3em;
 }
 
 .nav-bar {
-	width: 40%; 
+	width: 40%;
 	margin: 0 auto;
 	position: relative;
-	padding-top: 9px;	
-    z-index: 1;	
+	padding-top: 9px;
+	z-index: 1;
 }
 
 .opt-frame {
 	float: left;
-	position: absolute;  
+	position: absolute;
 	padding-top: 9px;
 	padding-left: 5px;
 	height: 100%;
-	width: 25%;	
+	width: 25%;
 	z-index: 0;
 	background-color: white;
-	-webkit-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
-	box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
-	-webkit-transition:all linear 0.3s;
-    -moz-transition:all linear 0.3s;
-    -ms-transition:all linear 0.3s;
-    -o-transition:all linear 0.3s;
-    transition:all linear 0.3s;
+	-webkit-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+	-webkit-transition: all linear 0.3s;
+	-moz-transition: all linear 0.3s;
+	-ms-transition: all linear 0.3s;
+	-o-transition: all linear 0.3s;
+	transition: all linear 0.3s;
 }
 
 .opt-frame.ng-hide {
-	opacity:0;
+	opacity: 0;
 }
-	
+
 .opt {
 	
 }
 
 .nav-shadow {
-	-webkit-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
-	box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
 }
 
 .map {
@@ -172,7 +174,7 @@ html, body {
 
 .form-input {
 	display: block;
-	width: 300px;
+	width: 200px;
 	height: 34px;
 	font-size: 15px;
 	background-color: transparent;
@@ -180,20 +182,48 @@ html, body {
 	border-color: transparent;
 }
 
-.form-input:focus { 
+.form-input:focus {
 	outline: none;
 }
 
-.custom-zoom{
-    bottom: .5em;
-    right: .5em;
+.custom-zoom {
+	bottom: .5em;
+	right: .5em;
 }
-.custom-zoom button, .custom-zoom button:active, .custom-zoom button:focus, .custom-zoom button:hover{
-    background-color: rgba(40, 40, 40, .7);
-    font-size : 20px;
-    -webkit-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
-	box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
+
+.custom-zoom button, .custom-zoom button:active, .custom-zoom button:focus,
+	.custom-zoom button:hover {
+	background-color: rgba(40, 40, 40, .7);
+	font-size: 20px;
+	-webkit-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+}
+
+.typeahead-demo .custom-popup-wrapper {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	display: none;
+	background-color: #f9f9f9;
+}
+
+.typeahead-demo .custom-popup-wrapper>.message {
+	padding: 10px 20px;
+	border-bottom: 1px solid #ddd;
+	color: #868686;	
+}
+
+.typeahead-demo .custom-popup-wrapper>.dropdown-menu {
+	position: static;
+	float: none;
+	display: block;
+	width: 300px;
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
 }
 
 /* ==========================================================================
