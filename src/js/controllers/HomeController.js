@@ -5,22 +5,31 @@
         .module('agora-geodash')
         .controller('HomeController', HomeController);
 
-    function HomeController($log, $http) {
-        $log.debug('HomeController');
+	function getObservation(feature, http) {
+		console.log(feature);		
+		
+		var success = function(response) {
+          alert(response.data.text);
+        }
 
-        var iconStyle = new ol.style.Style({
-          image: new ol.style.Icon(({
-            opacity: 0.75,
-            scale: 0.05,
-            src: iconUrl,
-          })),
-        });
+        http.get("http://localhost:8080/hello/world").then(success)
+		
+	};		
+		
+    function HomeController($scope, $http, $log) {
+        $log.debug('HomeController');
 		
         var vectorSource = new ol.source.Vector();
         var vector = new ol.layer.Vector({
           title: 'Sensors',
           source: vectorSource,
-          style: iconStyle,
+          style: new ol.style.Style({
+			  image: new ol.style.Icon(({
+				opacity: 0.75,
+				scale: 0.05,
+				src: iconUrl,
+			  })),
+			}),
         });
        
         var map = new ol.Map({
@@ -104,17 +113,16 @@
 			if (selected.length) {
 				selected.forEach(function(feature){
 					feature = feature;
-					console.log(feature);
+					$scope.optShow = true; 
+					getObservation(feature, $http);					
 				});
-			}
-			
-		});
+			} else {
+				$scope.$apply(function(){
+					$scope.optShow = false;
+				});
+			};		
+		});		
         
-        var success = function(response) {
-          alert(response.data.text);
-        }
-
-        $http.get("http://localhost:8080/hello/world").then(success)
     }
 
 }(window.angular, window.ol));

@@ -1,5 +1,11 @@
-<section data-ng-controller="HomeController as vm">
+<section data-ng-controller="HomeController as vm">	
 	<div id="map" class="map"></div>
+	<div id="opt-frame" class="opt-frame" ng-show="optShow"
+		ng-init="optShow=false" ng-animate="box">
+		<div id="opt" class="opt">
+			asd
+		</div>
+	</div>
 	<div id="nav-bar" class="nav-bar">
 		<div id="nav-shadow" class="nav-shadow">
 			<nav class="navbar navbar-default">
