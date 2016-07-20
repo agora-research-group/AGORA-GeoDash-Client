@@ -14,37 +14,11 @@
 
 		http.get("http://localhost:8080/hello/world").then(success)
 
-	}
-	;
+	};
 
 	function HomeController($scope, $http, $log) {
 		$log.debug('HomeController');
 		
-		$scope.modelOptions={
-			debounce: {
-	      	default: 500,
-	      		blur: 250
-	    	},
-	    	getterSetter: true
-	    };
-
-		$scope.getLocation=function(val) {
-			return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
-		      params: {
-		        address: val,
-		        sensor: false
-		      }
-		    }).then(function(response){
-		      return response.data.results.map(function(item){
-		    	  if (item.formatted_address.length > 35) {
-		    		  return item.formatted_address.substring(0, 35).concat("..."); 
-		    	  } else {
-		    		  return item.formatted_address;
-		    	  }
-		      });
-		    });
-		};
-
 		var vectorSource = new ol.source.Vector();
 		var vector = new ol.layer.Vector({
 			title : 'Sensors',
@@ -136,9 +110,42 @@
 				$scope.$apply(function() {
 					$scope.optShow = false;
 				});
-			}
-			;
+			};
 		});
+		
+		$scope.selectLocation=function() {
+			var val = $scope.searchValue.replace(" ", "+");
+			
+			return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
+		      params: {
+		        address: val,
+		        sensor: false
+		      }
+		    }).then(function(response){
+		      return response.data.results.map(function(item){
+		    	  var lct = item.geometry.location;
+		    	  map.getView().setCenter(ol.proj.transform([lct.lng, lct.lat], 'EPSG:4326', 'EPSG:3857'));
+		    	  map.getView().setZoom(5);
+		      });
+		    });
+		};
+		
+		$scope.getLocation=function(val) {
+			return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
+		      params: {
+		        address: val,
+		        sensor: false
+		      }
+		    }).then(function(response){
+		      return response.data.results.map(function(item){
+		    	  if (item.formatted_address.length > 35) {
+		    		  return item.formatted_address.substring(0, 35).concat("..."); 
+		    	  } else {
+		    		  return item.formatted_address;
+		    	  }
+		      });
+		    });
+		};
 
 	}
 

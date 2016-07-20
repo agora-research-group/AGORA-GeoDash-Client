@@ -4,7 +4,7 @@ var b = 2;
 
     var a = 1;
 
-    angular    	  	
+    var app = angular
     	.module('agora-geodash', [
             'ngRoute', 'ui.bootstrap', 'ngAnimate'
         ])
@@ -32,5 +32,6 @@ var b = 2;
 
         .run(function($log) {
             $log.info('Running agora-geodash');
-        })
+        });
+        
 }(window, window.global, window.angular));
