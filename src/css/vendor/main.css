@@ -117,11 +117,38 @@ html, body {
 }
 
 .nav-bar {
-	width: 50%; 
+	width: 40%; 
 	margin: 0 auto;
 	position: relative;
+	padding-top: 9px;	
+    z-index: 1;	
+}
+
+.opt-frame {
+	float: left;
+	position: absolute;  
 	padding-top: 9px;
-    z-index: 1;
+	padding-left: 5px;
+	height: 100%;
+	width: 25%;	
+	z-index: 0;
+	background-color: white;
+	-webkit-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
+	box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
+	-webkit-transition:all linear 0.3s;
+    -moz-transition:all linear 0.3s;
+    -ms-transition:all linear 0.3s;
+    -o-transition:all linear 0.3s;
+    transition:all linear 0.3s;
+}
+
+.opt-frame.ng-hide {
+	opacity:0;
+}
+	
+.opt {
+	
 }
 
 .nav-shadow {
@@ -159,7 +186,7 @@ html, body {
 
 .custom-zoom{
     bottom: .5em;
-    left: .5em;
+    right: .5em;
 }
 .custom-zoom button, .custom-zoom button:active, .custom-zoom button:focus, .custom-zoom button:hover{
     background-color: rgba(40, 40, 40, .7);
