@@ -5,20 +5,57 @@
 	angular.module('agora-geodash')
 			.controller('HomeController', HomeController);
 
-	function getObservation(feature, http) {
+	function getObservation(feature, http, scope) {
 		var success = function(response) {
 			alert(response.data.text);
 		}
 
-		http.post('http://localhost:8080/sos/describesensor').then(
-				function(response) {
-					return response.data;
-				}, function(errResponse) {
-					console.error('Error');
-					// return $q.reject(errResponse);
-				});
-	}
-	;
+		http.post('http://localhost:8080/sos/describesensor')
+			.then(function(response) {
+				return response.data;
+			}, function(errResponse) {
+				console.error('Error');
+				// return $q.reject(errResponse);
+			});
+		
+		var chartSeries = [{"name": "Some data", "data": [1, 2, 4, 7, 3]}];
+		
+		Highcharts.chart('chart', {
+			options: {
+		      chart: {
+		        type: 'areaspline',
+		        renderTo: 'chart',
+		        events: {
+	                load: function () {
+	                    alert('The chart is being redrawn');
+	                }
+	            }
+		      },
+		      plotOptions: {
+		        series: {
+		          stacking: ''
+		        }
+		      }
+		    },
+		    legend: {
+		    	backgroundColor: '#FCFFC5'
+	        },
+		    series: chartSeries,
+		    title: {
+		      text: ''
+		    },
+		    credits: {
+		      enabled: false
+		    },
+		    loading: false,
+		    yAxis: {
+		    	title: {
+		    		text: "Values (cm)"
+		    	}
+		    }
+		});
+		
+	};
 
 	function HomeController($scope, $http, $log) {
 		$log.debug('HomeController');
@@ -125,14 +162,13 @@
 				selected.forEach(function(feature) {
 					feature = feature;
 					$scope.optShow = true;
-					getObservation(feature, $http);
+					getObservation(feature, $http, $scope);
 				});
 			} else {
 				$scope.$apply(function() {
 					$scope.optShow = false;
 				});
-			}
-			;
+			};
 		});
 
 		$scope.selectLocation = function() {
@@ -144,15 +180,15 @@
 					sensor : false
 				}
 			}).then(
-					function(response) {
-						return response.data.results.map(function(item) {
-							var lct = item.geometry.location;
-							map.getView().setCenter(
-									ol.proj.transform([ lct.lng, lct.lat ],
-											'EPSG:4326', 'EPSG:3857'));
-							map.getView().setZoom(5);
-						});
+				function(response) {
+					return response.data.results.map(function(item) {
+						var lct = item.geometry.location;
+						map.getView().setCenter(
+								ol.proj.transform([ lct.lng, lct.lat ],
+										'EPSG:4326', 'EPSG:3857'));
+						map.getView().setZoom(5);
 					});
+				});
 		};
 
 		$scope.getLocation = function(val) {
@@ -162,16 +198,16 @@
 					sensor : false
 				}
 			}).then(
-					function(response) {
-						return response.data.results.map(function(item) {
-							if (item.formatted_address.length > 35) {
-								return item.formatted_address.substring(0, 35)
-										.concat("...");
-							} else {
-								return item.formatted_address;
-							}
-						});
+				function(response) {
+					return response.data.results.map(function(item) {
+						if (item.formatted_address.length > 35) {
+							return item.formatted_address.substring(0, 35)
+									.concat("...");
+						} else {
+							return item.formatted_address;
+						}
 					});
+				});
 		};
 
 	}

@@ -2,39 +2,66 @@
 	<div id="map" class="map" ng-model="mainMap"></div>
 	<div id="opt-frame" class="opt-frame" ng-show="optShow"
 		ng-init="optShow=false" ng-animate="box">
-		<div id="opt" class="opt">
+		<div id="opt" class="opt" style="width: 100%">
 			<div class="panel panel-default">
 				<div class="panel-heading">Procedure</div>
-				<div class="panel-body">ID:</div>
-				<div class="panel-body">Description:</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">Observations</div>
 				<div class="panel-body">
-					<div class="form-inline">
-						<div class="form-group">
+					<div class="form-group">
+						<div class="col-md-4">
+							<label class="control-label" for="textinput">Key-ID:</label>
+						</div>
+						<div class="col-md-8" style="padding-bottom: 8px;">
+							DIAD-11923123-DJASJD-7216512</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-4">
+							<label class="control-label" for="textinput">Description:</label>
+						</div>
+						<div class="col-md-8" style="padding-bottom: 8px;">SENSOR -
+							SHOPPING</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default" style="width: 100%">
+				<div class="panel-heading">Observation</div>
+				<div class="panel-body" style="width: 100%">
+					<div class="form-group">
+						<div class="col-md-2">
+							<label class="control-label" for="textinput">From</label>
+						</div>
+						<div class="col-md-10" style="padding-bottom: 8px;">
 							<div class="input-group">
 								<input type="text" class="form-control" placeholder="From"
 									datetime-picker="dd MMM yyyy HH:mm" ng-model="myDateFrom"
-									is-open="isOpenFrom" /> 
-								<span class="input-group-btn">
+									is-open="isOpenFrom" /> <span class="input-group-btn">
 									<button type="button" class="btn btn-default"
 										ng-click="openCalendarFrom($event, prop)">
 										<i class="glyphicon glyphicon-calendar"></i>
 									</button>
 								</span>
 							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-2">
+							<label class="control-label" for="textinput">To</label>
+						</div>
+						<div class="col-md-10" style="padding-bottom: 8px;">
 							<div class="input-group">
 								<input type="text" class="form-control" placeholder="To"
 									datetime-picker="dd MMM yyyy HH:mm" ng-model="myDateTo"
-									is-open="isOpenTo" /> 
-								<span class="input-group-btn">
+									is-open="isOpenTo" /> <span class="input-group-btn">
 									<button type="button" class="btn btn-default"
 										ng-click="openCalendarTo($event, prop)">
 										<i class="glyphicon glyphicon-calendar"></i>
 									</button>
 								</span>
 							</div>
+						</div>
+					</div>
+					<div class="form-group">
+    					<div class="col-md-12" style="padding-left: 0; width: 10px;">
+ 							<div id="chart" style="width: 21%; height: 250px;"/>
 						</div>
 					</div>
 				</div>
