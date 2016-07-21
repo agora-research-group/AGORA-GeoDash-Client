@@ -3,8 +3,42 @@
 	<div id="opt-frame" class="opt-frame" ng-show="optShow"
 		ng-init="optShow=false" ng-animate="box">
 		<div id="opt" class="opt">
-			<uib-timepicker ng-model="mytime" ng-change="changed()"
-				hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+			<div class="panel panel-default">
+				<div class="panel-heading">Procedure</div>
+				<div class="panel-body">ID:</div>
+				<div class="panel-body">Description:</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">Observations</div>
+				<div class="panel-body">
+					<div class="form-inline">
+						<div class="form-group">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="From"
+									datetime-picker="dd MMM yyyy HH:mm" ng-model="myDateFrom"
+									is-open="isOpenFrom" /> 
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default"
+										ng-click="openCalendarFrom($event, prop)">
+										<i class="glyphicon glyphicon-calendar"></i>
+									</button>
+								</span>
+							</div>
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="To"
+									datetime-picker="dd MMM yyyy HH:mm" ng-model="myDateTo"
+									is-open="isOpenTo" /> 
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default"
+										ng-click="openCalendarTo($event, prop)">
+										<i class="glyphicon glyphicon-calendar"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div id="nav-bar" class="nav-bar">
@@ -22,7 +56,8 @@
 						<form class="navbar-form navbar-left" role="search">
 							<div class="form-group typeahead-demo">
 								<input type="text" ng-model="searchValue" placeholder="Search"
-									uib-typeahead="address for address in getLocation($viewValue)" class="form-input"									
+									uib-typeahead="address for address in getLocation($viewValue)"
+									class="form-input"
 									typeahead-popup-template-url="/AGORA-GeoDash-client/src/templates/customPopupTemplate.html">
 							</div>
 						</form>
@@ -30,8 +65,8 @@
 							<a class="navbar-icons" href="#"> <img alt="Search"
 								src="/AGORA-GeoDash-client/src/imgs/icons/search-button.png"
 								width=22px " height="22px" ng-click="selectLocation()" />
-							</a> <a class="navbar-icons" href="http://www.agora.icmc.usp.br" target="_blank"> <img
-								alt="Agora Research Group"
+							</a> <a class="navbar-icons" href="http://www.agora.icmc.usp.br"
+								target="_blank"> <img alt="Agora Research Group"
 								src="/AGORA-GeoDash-client/src/imgs/agora/agora.png"
 								width="50px" />
 							</a>

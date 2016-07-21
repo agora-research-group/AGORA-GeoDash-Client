@@ -6,7 +6,7 @@ var b = 2;
 
     var app = angular
     	.module('agora-geodash', [
-            'ngRoute', 'ui.bootstrap', 'ngAnimate'
+            'ngRoute', 'ui.bootstrap', 'ngAnimate', 'ui.bootstrap.datetimepicker'
         ])
 
         .constant('initUrl', 'http://localhost/AGORA-GeoDash-client/src/')
