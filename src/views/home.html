@@ -1,7 +1,7 @@
 <section data-ng-controller="HomeController as vm">
 	<div id="map" class="map" ng-model="mainMap"></div>
 	<div id="opt-frame" class="opt-frame" ng-show="optShow"
-		ng-init="optShow=false" ng-animate="box">
+		ng-init="optShow=false">
 		<div id="opt" class="opt" style="width: 100%">
 			<div class="panel panel-default">
 				<div class="panel-heading">Procedure</div>
@@ -61,7 +61,7 @@
 					</div>
 					<div class="form-group">
     					<div class="col-md-12" style="padding-left: 0; width: 10px;">
- 							<div id="chart" style="width: 21%; height: 250px;"/>
+ 							<div id="chart" style="width: 21%; height: 230px;"/>
 						</div>
 					</div>
 				</div>
@@ -75,7 +75,7 @@
 					<div class="navbar-header">
 						<a class="navbar-icons" href="#"> <img alt="Menu"
 							src="/AGORA-GeoDash-client/src/imgs/icons/searchbox-hamb.png"
-							width=20px " height="20px" />
+							width=20px " height="20px" ng-click="openSettings()"/>
 						</a>
 					</div>
 					<div class="collapse navbar-collapse"
@@ -102,5 +102,17 @@
 				</div>
 			</nav>
 		</div>
+	</div>
+	<div id="web-settings" class="web-settings" ng-show="isSetOpen" ng-init="isSetOpen=false" >
+		<div id="web-settings-menu" class="web-settings-menu">
+			<div style="margin: auto; width: 32%;">
+			 	<a href="http://www.agora.icmc.usp.br"
+					target="_blank"> <img alt="Agora Research Group"
+					src="/AGORA-GeoDash-client/src/imgs/agora/agora.png"
+					width="120px"/>
+				</a>
+			</div>
+		</div>
+		<div id="web-settings-nu" class="web-settings-nu" ng-click="closeSettings()"></div>
 	</div>
 </section>

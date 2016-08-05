@@ -62,6 +62,15 @@
 
 		$scope.isOpenFrom = false;
 		$scope.isOpenFromTo = false;
+		$scope.isSetOpen = false;
+		
+		$scope.openSettings = function() {
+	        $scope.isSetOpen = true;
+	    };
+	    
+	    $scope.closeSettings = function() {
+    		$scope.isSetOpen = false;
+	    };
 		
 		$scope.openCalendarFrom = function(e) {
 	        e.preventDefault();
@@ -77,6 +86,45 @@
 	        $scope.isOpenTo = true;
 	    };
 
+	    var twitterSource = new ol.source.Vector();
+		var twitter = new ol.layer.Vector({
+			title : 'Twitter',
+			source : twitterSource,
+			style : new ol.style.Style({
+				image : new ol.style.Icon(({
+					opacity : 0.75,
+					scale : 1,
+					src : twitterUrl,
+				})),
+			}),
+		});
+	    
+		var cemadenSource = new ol.source.Vector();
+		var cemaden = new ol.layer.Vector({
+			title : 'Cemaden',
+			source : cemadenSource,
+			style : new ol.style.Style({
+				image : new ol.style.Icon(({
+					opacity : 0.75,
+					scale : 0.30,
+					src : cemadenUrl,
+				})),
+			}),
+		});
+		
+		var cemadenHySource = new ol.source.Vector();
+		var cemadenHy = new ol.layer.Vector({
+			title : 'Cemaden Hy',
+			source : cemadenHySource,
+			style : new ol.style.Style({
+				image : new ol.style.Icon(({
+					opacity : 0.75,
+					scale : 0.05,
+					src : iconUrl,
+				})),
+			}),
+		});
+		
 		var vectorSource = new ol.source.Vector();
 		var vector = new ol.layer.Vector({
 			title : 'Sensors',
@@ -109,7 +157,7 @@
 				}), ],
 			}), new ol.layer.Group({
 				'title' : 'Overlaps',
-				layers : [ vector ],
+				layers : [ vector, cemaden, cemadenHy, twitter ],
 			}), ],
 			view : new ol.View({
 				center : ol.proj.fromLonLat([ -47.890926, -22.008708 ]),
@@ -138,6 +186,71 @@
 		}).then(function(json) {
 			var features = new ol.format.GeoJSON().readFeatures(json);
 			vectorSource.addFeatures(features);
+		});
+		
+		var f = ol.format.ogc.filter;
+		var featureRequest = new ol.format.WFS().writeGetFeature({
+			srsName : 'EPSG:3857',
+			featureNS : 'http://www.agora.icmc.usp.br/agora',
+			featurePrefix : 'agora',
+			featureTypes : [ 'cemaden_stations' ],
+			outputFormat : 'application/json',
+			geometryName : 'Point',
+			filter : ol.format.ogc.filter.equalTo('stype', 'P')
+		});
+
+		fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
+			method : 'POST',
+			body : new XMLSerializer().serializeToString(featureRequest)
+		}).then(function(response) {
+			return response.json();
+		}).then(function(json) {
+			var features = new ol.format.GeoJSON().readFeatures(json);
+			cemadenSource.addFeatures(features);
+		});
+		
+		var f = ol.format.ogc.filter;
+		var featureRequest = new ol.format.WFS().writeGetFeature({
+			srsName : 'EPSG:3857',
+			featureNS : 'http://www.agora.icmc.usp.br/agora',
+			featurePrefix : 'agora',
+			featureTypes : [ 'cemaden_stations' ],
+			outputFormat : 'application/json',
+			geometryName : 'Point',
+			filter : ol.format.ogc.filter.equalTo('stype', 'H')
+		});
+
+		fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
+			method : 'POST',
+			body : new XMLSerializer().serializeToString(featureRequest)
+		}).then(function(response) {
+			return response.json();
+		}).then(function(json) {
+			var features = new ol.format.GeoJSON().readFeatures(json);
+			cemadenHySource.addFeatures(features);
+		});
+		
+		var f = ol.format.ogc.filter;
+		var featureRequest = new ol.format.WFS().writeGetFeature({
+			srsName : 'EPSG:3857',
+			featureNS : 'http://www.agora.icmc.usp.br/agora',
+			featurePrefix : 'agora',
+			featureTypes : [ 'saopauloprioritization_tweets' ],
+			outputFormat : 'application/json',
+			geometryName : 'Point',
+			filter : ol.format.ogc.filter.equalTo('id_str', '712978920128249857'),
+			
+		});
+
+		fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
+			method : 'POST',
+			body : new XMLSerializer().serializeToString(featureRequest)
+		}).then(function(response) {
+			return response.json();
+		}).then(function(json) {
+			var features = new ol.format.GeoJSON().readFeatures(json);
+			twitterSource.addFeatures(features);
+			console.log(features);
 		});
 
 		// select interaction working on "click"
