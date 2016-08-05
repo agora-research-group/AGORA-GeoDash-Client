@@ -16,13 +16,22 @@ var b = 2;
                 .when('/', {
                     templateUrl: 'views/home.html'
                 })
+                .when('/decision', {
+                    templateUrl: 'views/decision.html'
+                })
+                .when('/information', {
+                    templateUrl: 'views/information.html'
+                })
+                .when('/datasource', {
+                    templateUrl: 'views/datasource.html'
+                })
                 .otherwise({
                     templateUrl: '/404.html'
                 });
 
             $locationProvider.html5Mode({
                 enabled: true,
-                requireBase: false
+                requireBase: true
             });
         })
 
