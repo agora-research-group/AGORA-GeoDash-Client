@@ -1,0 +1,72 @@
+<section data-ng-controller="ListDecisionController as vm">
+	<div class="container-fluid" style="height: 100%;padding-left:0px;">
+		<div id="settings-menu" class="settings-menu">
+			<div id="settings-view-menu-top" class="settings-view-menu-top">
+			 	<div style="margin: auto; width: 60%;">
+				 	<a href="http://www.agora.icmc.usp.br"
+						target="_blank"> <img alt="Agora Research Group"
+						src="/AGORA-GeoDash-client/src/imgs/agora/agora.png"
+						width="120px"/>
+					</a>
+				</div>
+				<hr/>
+				<div style="margin: auto; width: 50%;">
+				 	<h1><small>Decision</small></h1>
+				</div>
+				<hr/>	
+				<div class="media" style="padding-left: 20px;">
+				  <div class="media-left media-middle">
+				    <a href="NewDecision">
+				      <img class="media-object" src="/AGORA-GeoDash-client/src/imgs/icons/new.png"
+				       	width="25px">
+				    </a>
+				  </div>
+				  <div class="media-body">
+				    <a href="NewDecision">
+				    	<h4>New</h4>
+				    </a>
+				  </div>
+				</div>
+			</div>
+			<div id="settings-view-menu-bottom" class="settings-view-menu-bottom">
+				<div id="settings-view-menu-bottom-align" class="settings-view-menu-bottom-align">
+					<div class="media" style="padding-left: 20px">
+					  <div class="media-left media-middle">
+					    <a href="/AGORA-GeoDash-client/src/">
+					      <img class="media-object" src="/AGORA-GeoDash-client/src/imgs/icons/home.png"
+					       	width="25px">
+					    </a>
+					  </div>
+					  <div class="media-body">
+					    <a href="/AGORA-GeoDash-client/src/">
+					    	<h4>Home</h4>
+					    </a>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="settings-view" id="settings-view">
+			<table class="table table-condensed">
+				<thead>
+			        <tr>
+			            <th class="col-xs-2">#</th>
+			            <th class="col-xs-3">Title</th>
+			            <th class="col-xs-4">Description</th>
+			            <th>Actions</th>
+			            <th></th>
+			        </tr>
+		        </thead>
+			  	<tr ng-repeat="decision in decisions">
+		            <td>{{decision.id}}</td>
+		            <td>{{decision.title}}</td>
+		            <td>{{decision.description}}</td>
+					<td>
+		           		<a class="btn btn-primary" ng-href="#/update/{{veiculo.id}}">Editar</a>
+		                <button class=	"btn btn-primary" ng-click="excluir(veiculo.id)">Excluir</button>
+		            </td>
+		        </tr>
+			</table>
+		</div>
+	</div>
+</section>
