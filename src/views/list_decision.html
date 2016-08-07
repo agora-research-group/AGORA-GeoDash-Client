@@ -47,14 +47,13 @@
 			</div>
 		</div>
 		<div class="settings-view" id="settings-view">
-			<table class="table table-condensed">
+			<table class="table table-striped">
 				<thead>
 			        <tr>
 			            <th class="col-xs-2">#</th>
 			            <th class="col-xs-3">Title</th>
-			            <th class="col-xs-4">Description</th>
+			            <th class="col-xs-5">Description</th>
 			            <th>Actions</th>
-			            <th></th>
 			        </tr>
 		        </thead>
 			  	<tr ng-repeat="decision in decisions">
@@ -62,8 +61,14 @@
 		            <td>{{decision.title}}</td>
 		            <td>{{decision.description}}</td>
 					<td>
-		           		<a class="btn btn-primary" ng-href="#/update/{{veiculo.id}}">Editar</a>
-		                <button class=	"btn btn-primary" ng-click="excluir(veiculo.id)">Excluir</button>
+		           		<a href="#"> <img alt="Edit"
+							src="/AGORA-GeoDash-client/src/imgs/icons/edit.png"
+							width="20px" height="20px"/>
+						</a>
+						<a href="#"> <img alt="Remove"
+							src="/AGORA-GeoDash-client/src/imgs/icons/remove.png"
+							width="20px" height="20px"/>
+						</a>
 		            </td>
 		        </tr>
 			</table>
