@@ -1,4 +1,4 @@
-<section data-ng-controller="ListDecisionController as vm">
+<section data-ng-controller="EditDecisionController as vm">
 	<div class="container-fluid" style="height: 100%;padding-left:0px;">
 		<div id="settings-menu" class="settings-menu">
 			<div id="settings-view-menu-top" class="settings-view-menu-top">
@@ -16,14 +16,14 @@
 				<hr/>	
 				<div class="media" style="padding-left: 20px;">
 				  <div class="media-left media-middle">
-				    <a href="NewDecision">
-				      <img class="media-object" src="/AGORA-GeoDash-client/src/imgs/icons/new.png"
+				    <a href="ListDecisions">
+				      <img class="media-object" src="/AGORA-GeoDash-client/src/imgs/icons/information.png"
 				       	width="25px">
 				    </a>
 				  </div>
 				  <div class="media-body">
-				    <a href="NewDecision">
-				    	<h4>New</h4>
+				    <a href="ListDecisions">
+				    	<h4>List</h4>
 				    </a>
 				  </div>
 				</div>
@@ -47,31 +47,35 @@
 			</div>
 		</div>
 		<div class="settings-view" id="settings-view">
-			<table class="table table-striped">
-				<thead>
-			        <tr>
-			            <th class="col-xs-2">#</th>
-			            <th class="col-xs-3">Title</th>
-			            <th class="col-xs-5">Description</th>
-			            <th>Actions</th>
-			        </tr>
-		        </thead>
-			  	<tr ng-repeat="decision in decisions">
-		            <td>{{decision.id}}</td>
-		            <td>{{decision.title}}</td>
-		            <td>{{decision.description}}</td>
-					<td>
-		           		<a href="EditDecision/{{decision.id}}"> <img alt="Edit"
-							src="/AGORA-GeoDash-client/src/imgs/icons/edit.png"
-							width="20px" height="20px"/>
-						</a>
-						<a href="#"> <img alt="Remove"
-							src="/AGORA-GeoDash-client/src/imgs/icons/remove.png"
-							width="20px" height="20px" ng-click="delete(decision.id)"/>
-						</a>
-		            </td>
-		        </tr>
-			</table>
+		    <form class="form-horizontal">
+			  <fieldset>
+			    <div id="legend">
+			      <legend class="">Edit Decision {{paramId}}</legend>
+			    </div>
+			     
+			    <div class="form-group" style="padding-left: 12px; padding-right: 15px;">
+			      <label for="name">Title</label>
+			      <div class="controls">
+			        <input type="text" id="title" name="tile" placeholder="Title" class="form-control"
+			        	ng-model="decision.title">
+			      </div>
+			    </div>
+			 
+			    <div class="form-group" style="padding-left: 12px; padding-right: 15px;">
+			      <label for="name">Description</label>
+			      <div class="controls">
+			        <textarea type="text" id="description" name="description" placeholder="Description" class="form-control"
+			        	ng-model="decision.description"></textarea>
+			      </div>
+			    </div>
+			 
+			     <div class="form-group" style="padding-left: 12px; padding-right: 15px;">
+			      <div class="controls">
+			        <button class="btn btn-default" ng-click="register()">Register</button>
+			      </div>
+			    </div>
+			  </fieldset>
+			</form>
 		</div>
 	</div>
 </section>

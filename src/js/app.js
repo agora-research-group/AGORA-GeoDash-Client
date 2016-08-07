@@ -22,6 +22,9 @@ var b = 2;
                 .when('/NewDecision', {
                     templateUrl: 'views/new_decision.html'
                 })
+                .when('/EditDecision/:id', {
+                    templateUrl: 'views/edit_decision.html'
+                })
                 .when('/information', {
                     templateUrl: 'views/information.html'
                 })
