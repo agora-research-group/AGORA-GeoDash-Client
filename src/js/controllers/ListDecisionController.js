@@ -23,6 +23,13 @@
 		
 		list($scope, $http);
 		
+		$scope.itensperpage = 10;
+		
+		$scope.config = {
+		    itemsPerPage: $scope.itensperpage,
+		    fillLastPage: false
+		};
+		
 		$scope.delete = function (id) {
 			console.log(id);
 			

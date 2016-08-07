@@ -47,19 +47,19 @@
 			</div>
 		</div>
 		<div class="settings-view" id="settings-view">
-			<table class="table table-striped">
+			<table class="table table-striped" at-table at-paginated at-list="decisions" at-config="config">
 				<thead>
-			        <tr>
-			            <th class="col-xs-2">#</th>
-			            <th class="col-xs-3">Title</th>
-			            <th class="col-xs-5">Description</th>
-			            <th>Actions</th>
-			        </tr>
+<!-- 			        <tr> -->
+<!-- 			            <th class="col-xs-2">#</th> -->
+<!-- 			            <th class="col-xs-3" at-implicit at-sortable at-attribute="decision.title">Title</th> -->
+<!-- 			            <th class="col-xs-5" at-implicit at-sortable at-attribute="decision.description">Description</th> -->
+<!-- 			            <th>Actions</th> -->
+<!-- 			        </tr> -->
 		        </thead>
-			  	<tr ng-repeat="decision in decisions">
-		            <td>{{decision.id}}</td>
-		            <td>{{decision.title}}</td>
-		            <td>{{decision.description}}</td>
+			  	<tr>
+		            <td class="col-xs-2" at-implicit at-sortable at-attribute="id"></td>
+		            <td class="col-xs-3" at-implicit at-sortable at-attribute="title"></td>
+		            <td class="col-xs-5" at-implicit at-sortable at-attribute="description"></td>
 					<td>
 		           		<a href="EditDecision/{{decision.id}}"> <img alt="Edit"
 							src="/AGORA-GeoDash-client/src/imgs/icons/edit.png"
@@ -72,6 +72,7 @@
 		            </td>
 		        </tr>
 			</table>
+			<at-pagination at-list="decisions" at-config="config"></at-pagination>
 		</div>
 	</div>
 </section>

@@ -6,11 +6,9 @@ var b = 2;
 
     var app = angular
     	.module('agora-geodash', [
-            'ngRoute', 'ui.bootstrap', 'ngAnimate', 'ui.bootstrap.datetimepicker'
+            'ngRoute', 'ui.bootstrap', 'ngAnimate', 'ui.bootstrap.datetimepicker', "angular-table"
         ])
 
-//        .constant('initUrl', 'http://localhost/AGORA-GeoDash-client/src/')
-        
         .config(function($routeProvider, $locationProvider) {
             $routeProvider
                 .when('/', {
