@@ -139,12 +139,53 @@ position: absolute;
 	padding-top: 10px;
 	padding-left: 5px;
 	height: 100%;
+	min-width: 300px;
 	width: 25%;
 	background-color: white;
 	-webkit-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
 	box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
 	z-index: 2;
+}
+
+.settings-menu {
+	float: left;
+	position: absolute;
+	padding-top: 10px;
+	padding-left: 5px;
+	height: 100%;
+	width: 15%;
+	min-width: 200px;
+	background-color: white;
+	-webkit-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+}
+
+.settings-view {
+	float: left;
+	background-color: white;
+	height: 100%;
+	width: 100%;
+	z-index: 0;	
+	padding-left: 230px;
+	padding-top: 20px;
+}
+
+.settings-view-menu-top {
+	height: 80%; 
+	position: relative;
+}
+
+.settings-view-menu-bottom {
+	height: 20%; 
+	position: relative;
+}
+
+.settings-view-menu-bottom-align {
+	bottom: 0;
+	position: absolute;
+	padding-bottom: 10px;
 }
 
 .web-settings-nu {
@@ -174,6 +215,7 @@ position: absolute;
 	padding-left: 5px;
 	height: 100%;
 	width: 25%;
+	min-width: 310px;
 	z-index: 0;
 	background-color: white;
 	-webkit-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);

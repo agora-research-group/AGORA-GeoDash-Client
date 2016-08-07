@@ -9,15 +9,18 @@ var b = 2;
             'ngRoute', 'ui.bootstrap', 'ngAnimate', 'ui.bootstrap.datetimepicker'
         ])
 
-        .constant('initUrl', 'http://localhost/AGORA-GeoDash-client/src/')
+//        .constant('initUrl', 'http://localhost/AGORA-GeoDash-client/src/')
         
         .config(function($routeProvider, $locationProvider) {
             $routeProvider
                 .when('/', {
                     templateUrl: 'views/home.html'
                 })
-                .when('/decision', {
-                    templateUrl: 'views/decision.html'
+                .when('/ListDecisions', {
+                    templateUrl: 'views/list_decision.html'
+                })
+                .when('/NewDecision', {
+                    templateUrl: 'views/new_decision.html'
                 })
                 .when('/information', {
                     templateUrl: 'views/information.html'

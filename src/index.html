@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html data-ng-app="agora-geodash" class="no-js lt-ie9 lt-ie8" lang="en-us"> <![endif]-->
 <!--[if IE 8]>         <html data-ng-app="agora-geodash" class="no-js lt-ie9" lang="en-us"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html data-ng-app="agora-geodash" class="no-js" lang="en-us">
+<html ng-app="agora-geodash" class="no-js" lang="en-us">
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">
@@ -30,7 +30,7 @@
 </head>
 <body>
 
-	<data-ng-view></data-ng-view>
+	<ng-view></ng-view>
 
 	<script src="js/vendor/jquery/jquery-2.2.3.min.js"></script>
 
@@ -51,7 +51,8 @@
 	<script src="js/config.js"></script>
 
 	<script src="js/controllers/HomeController.js"></script>
-	<script src="js/controllers/DecisionController.js"></script>
+	<script src="js/controllers/ListDecisionController.js"></script>
+	<script src="js/controllers/NewDecisionController.js"></script>
 	<script src="js/controllers/InformationController.js"></script>
 	<script src="js/controllers/DataSourceController.js"></script>
 </body>
