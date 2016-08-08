@@ -16,7 +16,7 @@
     	});
 	}
 	
-	function ListDecisionController($scope, $http, $log, $location) {
+	function ListDecisionController($scope, $http, $log, $location, $window) {
 		$log.debug('ListDecisionController');
 		
 		$scope.decisions = [];
@@ -44,7 +44,6 @@
 	            }).error(function (error) {
 	                console.log('error'+error);
 	            });
-			
 		}
 	}
 

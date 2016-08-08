@@ -48,26 +48,19 @@
 		</div>
 		<div class="settings-view" id="settings-view">
 			<table class="table table-striped" at-table at-paginated at-list="decisions" at-config="config">
-				<thead>
-<!-- 			        <tr> -->
-<!-- 			            <th class="col-xs-2">#</th> -->
-<!-- 			            <th class="col-xs-3" at-implicit at-sortable at-attribute="decision.title">Title</th> -->
-<!-- 			            <th class="col-xs-5" at-implicit at-sortable at-attribute="decision.description">Description</th> -->
-<!-- 			            <th>Actions</th> -->
-<!-- 			        </tr> -->
-		        </thead>
+				<thead></thead>
 			  	<tr>
 		            <td class="col-xs-2" at-implicit at-sortable at-attribute="id"></td>
 		            <td class="col-xs-3" at-implicit at-sortable at-attribute="title"></td>
 		            <td class="col-xs-5" at-implicit at-sortable at-attribute="description"></td>
 					<td>
-		           		<a href="EditDecision/{{decision.id}}"> <img alt="Edit"
+		           		<a href="EditDecision/{{item.id}}"> <img alt="Edit"
 							src="/AGORA-GeoDash-client/src/imgs/icons/edit.png"
 							width="20px" height="20px"/>
 						</a>
-						<a href="#"> <img alt="Remove"
+						<a href="#"> <img alt="Remove" ng-click="delete(item.id)" confirm="Do you want to remove the decision {{item.title}}?"
 							src="/AGORA-GeoDash-client/src/imgs/icons/remove.png"
-							width="20px" height="20px" ng-click="delete(decision.id)"/>
+							width="20px" height="20px"/>
 						</a>
 		            </td>
 		        </tr>
