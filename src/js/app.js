@@ -24,8 +24,14 @@ var b = 2;
                 .when('/EditDecision/:id', {
                     templateUrl: 'views/edit_decision.html'
                 })
-                .when('/information', {
-                    templateUrl: 'views/information.html'
+                .when('/ListInfoReqs', {
+                    templateUrl: 'views/list_inforeq.html'
+                })
+                .when('/NewInfoReq', {
+                    templateUrl: 'views/new_inforeq.html'
+                })
+                .when('/EditInfoReq/:id', {
+                    templateUrl: 'views/edit_inforeq.html'
                 })
                 .when('/datasource', {
                     templateUrl: 'views/datasource.html'

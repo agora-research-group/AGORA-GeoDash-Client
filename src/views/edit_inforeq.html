@@ -1,0 +1,81 @@
+<section data-ng-controller="EditInfoReqController as vm">
+	<div class="container-fluid" style="height: 100%;padding-left:0px;">
+		<div id="settings-menu" class="settings-menu">
+			<div id="settings-view-menu-top" class="settings-view-menu-top">
+			 	<div style="margin: auto; width: 60%;">
+				 	<a href="http://www.agora.icmc.usp.br"
+						target="_blank"> <img alt="Agora Research Group"
+						src="/AGORA-GeoDash-client/src/imgs/agora/agora.png"
+						width="120px"/>
+					</a>
+				</div>
+				<hr/>
+				<div style="margin: auto; width: 65%;">
+				 	<h1><small>Information</small></h1>
+				</div>
+				<hr/>	
+				<div class="media" style="padding-left: 20px;">
+				  <div class="media-left media-middle">
+				    <a href="ListInfoReqs">
+				      <img class="media-object" src="/AGORA-GeoDash-client/src/imgs/icons/information.png"
+				       	width="25px">
+				    </a>
+				  </div>
+				  <div class="media-body">
+				    <a href="ListInfoReqs">
+				    	<h4>List</h4>
+				    </a>
+				  </div>
+				</div>
+			</div>
+			<div id="settings-view-menu-bottom" class="settings-view-menu-bottom">
+				<div id="settings-view-menu-bottom-align" class="settings-view-menu-bottom-align">
+					<div class="media" style="padding-left: 20px">
+					  <div class="media-left media-middle">
+					    <a href="/AGORA-GeoDash-client/src/">
+					      <img class="media-object" src="/AGORA-GeoDash-client/src/imgs/icons/home.png"
+					       	width="25px">
+					    </a>
+					  </div>
+					  <div class="media-body">
+					    <a href="/AGORA-GeoDash-client/src/">
+					    	<h4>Home</h4>
+					    </a>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="settings-view" id="settings-view">
+		    <form class="form-horizontal">
+			  <fieldset>
+			    <div id="legend">
+			      <legend class="">Edit Information Requirement {{paramId}}</legend>
+			    </div>
+			     
+			    <div class="form-group" style="padding-left: 12px; padding-right: 15px;">
+			      <label for="name">Title</label>
+			      <div class="controls">
+			        <input type="text" id="title" name="tile" placeholder="Title" class="form-control"
+			        	ng-model="infoReq.title">
+			      </div>
+			    </div>
+			 
+			    <div class="form-group" style="padding-left: 12px; padding-right: 15px;">
+			      <label for="name">Description</label>
+			      <div class="controls">
+			        <textarea type="text" id="description" name="description" placeholder="Description" class="form-control"
+			        	ng-model="infoReq.description"></textarea>
+			      </div>
+			    </div>
+			 
+			     <div class="form-group" style="padding-left: 12px; padding-right: 15px;">
+			      <div class="controls">
+			        <button class="btn btn-default" ng-click="register()">Register</button>
+			      </div>
+			    </div>
+			  </fieldset>
+			</form>
+		</div>
+	</div>
+</section>

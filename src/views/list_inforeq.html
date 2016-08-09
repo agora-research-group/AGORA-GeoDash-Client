@@ -1,0 +1,71 @@
+<section data-ng-controller="ListInfoReqController as vm">
+	<div class="container-fluid" style="height: 100%;padding-left:0px;">
+		<div id="settings-menu" class="settings-menu">
+			<div id="settings-view-menu-top" class="settings-view-menu-top">
+			 	<div style="margin: auto; width: 60%;">
+				 	<a href="http://www.agora.icmc.usp.br"
+						target="_blank"> <img alt="Agora Research Group"
+						src="/AGORA-GeoDash-client/src/imgs/agora/agora.png"
+						width="120px"/>
+					</a>
+				</div>
+				<hr/>
+				<div style="margin: auto; width: 65%;">
+				 	<h1><small>Information</small></h1>
+				</div>
+				<hr/>	
+				<div class="media" style="padding-left: 20px;">
+				  <div class="media-left media-middle">
+				    <a href="NewInfoReq">
+				      <img class="media-object" src="/AGORA-GeoDash-client/src/imgs/icons/new.png"
+				       	width="25px">
+				    </a>
+				  </div>
+				  <div class="media-body">
+				    <a href="NewInfoReq">
+				    	<h4>New</h4>
+				    </a>
+				  </div>
+				</div>
+			</div>
+			<div id="settings-view-menu-bottom" class="settings-view-menu-bottom">
+				<div id="settings-view-menu-bottom-align" class="settings-view-menu-bottom-align">
+					<div class="media" style="padding-left: 20px">
+					  <div class="media-left media-middle">
+					    <a href="/AGORA-GeoDash-client/src/">
+					      <img class="media-object" src="/AGORA-GeoDash-client/src/imgs/icons/home.png"
+					       	width="25px">
+					    </a>
+					  </div>
+					  <div class="media-body">
+					    <a href="/AGORA-GeoDash-client/src/">
+					    	<h4>Home</h4>
+					    </a>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="settings-view" id="settings-view">
+			<table class="table table-striped" at-table at-paginated at-list="inforeqs" at-config="config">
+				<thead></thead>
+			  	<tr>
+		            <td class="col-xs-2" at-implicit at-sortable at-attribute="id"></td>
+		            <td class="col-xs-3" at-implicit at-sortable at-attribute="title"></td>
+		            <td class="col-xs-5" at-implicit at-sortable at-attribute="description"></td>
+					<td>
+		           		<a href="EditInfoReq/{{item.id}}"> <img title="Edit"
+							src="/AGORA-GeoDash-client/src/imgs/icons/edit.png"
+							width="20px" height="20px"/>
+						</a>
+						<a href="#"> <img title="Remove" ng-click="delete(item.id)" confirm="Do you want to remove the information requirement {{item.title}}?"
+							src="/AGORA-GeoDash-client/src/imgs/icons/remove.png"
+							width="20px" height="20px"/>
+						</a>
+		            </td>
+		        </tr>
+			</table>
+			<at-pagination at-list="inforeqs" at-config="config"></at-pagination>
+		</div>
+	</div>
+</section>
