@@ -33,11 +33,17 @@ var b = 2;
                 .when('/EditInfoReq/:id', {
                     templateUrl: 'views/edit_inforeq.html'
                 })
-                .when('/datasource', {
-                    templateUrl: 'views/datasource.html'
+                .when('/ListDataSources', {
+                    templateUrl: 'views/list_datasource.html'
+                })
+                .when('/NewDataSource', {
+                    templateUrl: 'views/new_datasource.html'
+                })
+                .when('/EditDataSource/:id', {
+                    templateUrl: 'views/edit_datasource.html'
                 })
                 .otherwise({
-                    templateUrl: '/404.html'
+                    templateUrl: '/views/home.html'
                 });
 
             $locationProvider.html5Mode({
