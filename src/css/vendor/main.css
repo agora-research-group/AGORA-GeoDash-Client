@@ -125,10 +125,17 @@ position: absolute;
 .filter-bottom {
 	position: absolute;
 	width: 100%;
+	min-width: 900px;
     bottom: 0;
     z-index: 0;
     background-color: #F8F8F8;
     border-top: 2px solid #383B40;
+}
+
+.filter-bottom-box {
+	padding-top: 20px;
+	margin: auto;
+    width: 70%;
 }
 
 .filter-arrow {
@@ -252,7 +259,7 @@ position: absolute;
 	height: 100%;
 	width: 25%;
 	min-width: 310px;
-	z-index: 0;
+	z-index: 2;
 	background-color: white;
 	-webkit-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);

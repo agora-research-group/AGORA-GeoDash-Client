@@ -70,8 +70,8 @@
 			$log.debug('ShowFilters');
 			
 			if ($scope.isOpenBottomBar == false) {
-				$scope.hgt = 100;
-				$scope.icHgt = 115;
+				$scope.hgt = 80;
+				$scope.icHgt = 95;
 				$scope.isOpenBottomBar = true;
 			} else {
 				$scope.hgt = 20;
