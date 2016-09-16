@@ -155,12 +155,28 @@
 		</div>
 		<div id="web-settings-nu" class="web-settings-nu" ng-click="closeSettings()"></div>
 	</div>
-	<div id="filter-bottom" class="filter-bottom">
-		<div id="filter-arrow" class="filter-arrow">
+	<div id="filter-bottom" class="filter-bottom" ng-style="{height: hgt+ 'px'}">
+		<div id="filter-arrow" class="filter-arrow" ng-style="{height: icHgt+ 'px'}">
 			<a href="">
 		      <img class="media-object" src="/AGORA-GeoDash-client/src/imgs/icons/filter.png"
-		       	width="35px" ng-click="showListBottomSheet()" title="Filter">
+		       	width="45px" ng-click="showFilters()" title="Filter">
 		    </a>
 		</div>
+<!-- 		<div id="filter-box" class="filter-box"> -->
+			
+<!-- 			<div class="btn-group" uib-dropdown is-open="status.isopen"> -->
+<!-- 		      <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled"> -->
+<!-- 		        Button dropdown <span class="caret"></span> -->
+<!-- 		      </button> -->
+<!-- 		      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button"> -->
+<!-- 		        <li role="menuitem"><a href="#">Action</a></li> -->
+<!-- 		        <li role="menuitem"><a href="#">Another action</a></li> -->
+<!-- 		        <li role="menuitem"><a href="#">Something else here</a></li> -->
+<!-- 		        <li class="divider"></li> -->
+<!-- 		        <li role="menuitem"><a href="#">Separated link</a></li> -->
+<!-- 		      </ul> -->
+<!-- 		    </div> -->
+					
+<!-- 		</div> -->
 	</div>
 </section>

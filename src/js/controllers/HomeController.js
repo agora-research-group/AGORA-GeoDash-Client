@@ -62,18 +62,23 @@
 
 		$scope.isOpenFrom = false;
 		$scope.isOpenFromTo = false;
-		$scope.isSetOpen = false;
+		$scope.hgt = 20;
+		$scope.icHgt = 40;
+		$scope.isOpenBottomBar = false;
 		
-		$scope.showListBottomSheet = function() {
-		    $scope.alert = '';
-		    $mdBottomSheet.show({
-//		      templateUrl: 'bottom-sheet-list-template.html',
-//		      controller: 'ListBottomSheetCtrl'
-		    }).then(function(clickedItem) {
-//		      $scope.alert = clickedItem['name'] + ' clicked!';
-		    });
+		$scope.showFilters = function() {
+			$log.debug('ShowFilters');
+			
+			if ($scope.isOpenBottomBar == false) {
+				$scope.hgt = 100;
+				$scope.icHgt = 115;
+				$scope.isOpenBottomBar = true;
+			} else {
+				$scope.hgt = 20;
+				$scope.icHgt = 40;
+				$scope.isOpenBottomBar = false;
+			}
 		};
-		    
 		
 		$scope.openSettings = function() {
 	        $scope.isSetOpen = true;
