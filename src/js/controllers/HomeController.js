@@ -64,6 +64,17 @@
 		$scope.isOpenFromTo = false;
 		$scope.isSetOpen = false;
 		
+		$scope.showListBottomSheet = function() {
+		    $scope.alert = '';
+		    $mdBottomSheet.show({
+//		      templateUrl: 'bottom-sheet-list-template.html',
+//		      controller: 'ListBottomSheetCtrl'
+		    }).then(function(clickedItem) {
+//		      $scope.alert = clickedItem['name'] + ' clicked!';
+		    });
+		};
+		    
+		
 		$scope.openSettings = function() {
 	        $scope.isSetOpen = true;
 	    };
