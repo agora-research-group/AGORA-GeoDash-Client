@@ -7,7 +7,7 @@ var b = 2;
     var app = angular
     	.module('agora-geodash', [
             'ngRoute', 'ui.bootstrap', 'ngAnimate', 'ui.bootstrap.datetimepicker', 'angular-table', 
-            'angular-confirm'
+            'angular-confirm', 'ngMaterial'
         ])
 
         .config(function($routeProvider, $locationProvider) {

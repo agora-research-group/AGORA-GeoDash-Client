@@ -62,6 +62,8 @@
 
 		$scope.isOpenFrom = false;
 		$scope.isOpenFromTo = false;
+		$scope.isOpenFromFilt = false;
+		$scope.isOpenFromToFilt = false;
 		
 		$scope.showFilters = function() {
 			$scope.isFitOpen = true;
@@ -92,7 +94,29 @@
 
 	        $scope.isOpenTo = true;
 	    };
+	    
+	    $scope.openCalendarFromFilt = function(e) {
+	        e.preventDefault();
+	        e.stopPropagation();
 
+	        $scope.isOpenFromFilt = true;
+	    };
+	    
+	    $scope.openCalendarToFilt = function(e) {
+	        e.preventDefault();
+	        e.stopPropagation();
+
+	        $scope.isOpenToFilt = true;
+	    };
+
+	    $scope.users  = [
+	                      	            { id: 1, name: 'Scooby Doo' },
+	                      	            { id: 2, name: 'Shaggy Rodgers' },
+	                      	            { id: 3, name: 'Fred Jones' },
+	                      	            { id: 4, name: 'Daphne Blake' },
+	                      	            { id: 5, name: 'Velma Dinkley' }
+	                      	          ];
+	    
 	    var twitterSource = new ol.source.Vector();
 		var twitter = new ol.layer.Vector({
 			title : 'Twitter',
