@@ -78,6 +78,12 @@
 							width="20px" height="20px" ng-click="openSettings()"/>
 						</a>
 					</div>
+					<div class="navbar-header">
+						<a class="navbar-icons" href="#"> <img title="Filter"
+							src="/AGORA-GeoDash-client/src/imgs/icons/filter-simple.png"
+		       				width="20px" ng-click="showFilters()" >
+						</a>
+					</div>
 					<div class="collapse navbar-collapse"
 						id="bs-example-navbar-collapse-1">
 						<form class="navbar-form navbar-left" role="search">
@@ -155,78 +161,35 @@
 		</div>
 		<div id="web-settings-nu" class="web-settings-nu" ng-click="closeSettings()"></div>
 	</div>
-	<div id="filter-bottom" class="filter-bottom" ng-style="{height: hgt+ 'px'}" >
-		<div id="filter-arrow" class="filter-arrow" ng-style="{height: icHgt+ 'px'}">
-			<a href="">
-		      <img class="media-object" src="/AGORA-GeoDash-client/src/imgs/icons/filter.png"
-		       	width="45px" ng-click="showFilters()" title="Filter">
-		    </a>
-		</div>
-		<div id="filter-bottom-box" class="filter-bottom-box" ng-show="isOpenBottomBar">
-		 	<div class="col-md-4" style="min-width: 300px;">
-		 		<div class="input-group">
-					<div class="form-group">
-						<div class="col-md-5">
-							<h4>Decision: </h4>
-						</div>
-						<div class="col-md-5">
-							<div class="input-group-btn">
-						        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
-						        			aria-haspopup="true" aria-expanded="false">Select <span class="caret"></span></button>
-						        <ul class="dropdown-menu dropdown-menu-right">
-						          <li><a href="#">Action</a></li>
-						          <li><a href="#">Another action</a></li>
-						          <li><a href="#">Something else here</a></li>
-						          <li role="separator" class="divider"></li>
-						          <li><a href="#">Separated link</a></li>
-						        </ul>
-						    </div>
-						</div>
-					</div>
+	
+	<div id="filter-box" class="filter-box" ng-show="isFitOpen" ng-init="isFitOpen=false" >
+		<div id="filter-box-items" class="filter-box-items">
+			<div id="settings-view-menu-top" class="settings-view-menu-top">
+				<div style="margin: auto; width: 60%;">
+				 	<a href="http://www.agora.icmc.usp.br"
+						target="_blank"> <img alt="Agora Research Group"
+						src="/AGORA-GeoDash-client/src/imgs/agora/agora.png"
+						width="120px"/>
+					</a>
 				</div>
-			</div>
-			<div class="col-md-4" style="min-width: 300px;">
-				<div class="input-group">
-					<div class="form-group">
-						<div class="col-md-4">
-							<h4>From: </h4>
-						</div>
-						<div class="col-md-6" style="width: 60%;">
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="From"
-									datetime-picker="dd MMM yyyy HH:mm" ng-model="myDateFrom"
-									is-open="isOpenFrom" /> <span class="input-group-btn">
-									<button type="button" class="btn btn-default"
-										ng-click="openCalendarFrom($event, prop)">
-										<i class="glyphicon glyphicon-calendar"></i>
-									</button>
-								</span>
-							</div>
-						</div>
-					</div>
+				<hr/>
+				<div style="margin: auto; width: 35%;">
+				 	<h1><small>Filters</small></h1>
 				</div>
+				<hr/>	
 			</div>
-			<div class="col-md-4" style="min-width: 300px;">
-				<div class="input-group">
-					<div class="form-group">
-						<div class="col-md-4">
-							<h4>To: </h4>
-						</div>
-						<div class="col-md-6" style="width: 60%;">
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="From"
-									datetime-picker="dd MMM yyyy HH:mm" ng-model="myDateFrom"
-									is-open="isOpenFrom" /> <span class="input-group-btn">
-									<button type="button" class="btn btn-default"
-										ng-click="openCalendarFrom($event, prop)">
-										<i class="glyphicon glyphicon-calendar"></i>
-									</button>
-								</span>
-							</div>
-						</div>
+			<div id="settings-view-menu-bottom" class="settings-view-menu-bottom">
+				<div id="settings-view-menu-bottom-align" class="settings-view-menu-bottom-align" 
+							style="width: 100%">
+					<div style="margin: auto; width: 20%;">
+					    <a href="/AGORA-GeoDash-client/src/">
+					      <img class="media-object" src="/AGORA-GeoDash-client/src/imgs/icons/close-icon.png"
+					       	width="35px" ng-click="closeFilters()">
+					    </a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 </section>

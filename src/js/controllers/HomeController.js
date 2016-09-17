@@ -62,22 +62,13 @@
 
 		$scope.isOpenFrom = false;
 		$scope.isOpenFromTo = false;
-		$scope.hgt = 20;
-		$scope.icHgt = 40;
-		$scope.isOpenBottomBar = false;
 		
 		$scope.showFilters = function() {
-			$log.debug('ShowFilters');
-			
-			if ($scope.isOpenBottomBar == false) {
-				$scope.hgt = 80;
-				$scope.icHgt = 95;
-				$scope.isOpenBottomBar = true;
-			} else {
-				$scope.hgt = 20;
-				$scope.icHgt = 40;
-				$scope.isOpenBottomBar = false;
-			}
+			$scope.isFitOpen = true;
+		};
+		
+		$scope.closeFilters = function() {
+			$scope.isFitOpen = false;
 		};
 		
 		$scope.openSettings = function() {
