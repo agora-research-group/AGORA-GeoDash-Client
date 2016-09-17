@@ -173,10 +173,30 @@
 					</a>
 				</div>
 				<hr/>
-				<div style="margin: auto; width: 35%;">
+				<div style="margin: auto; width: 100%; text-align: center; ">
 				 	<h1><small>Filters</small></h1>
 				</div>
-				<hr/>	
+				<hr/>
+				<div layout="column">
+					<div class="input-group" style="width: 100%;">
+						<md-input-container style="width:100%;">
+				          <label>Decision</label>
+				          <md-select ng-model="ctrl.userState">
+				            <md-option><em>None</em></md-option>
+				            <md-option ng-value="user" ng-repeat="user in users">{{user.name}}</md-option>
+				          </md-select>
+				        </md-input-container>
+					</div>
+					<div class="input-group" style="width: 100%;">
+						<md-datepicker ng-model="myDateFromFilt" md-placeholder="From" style="width:100%;"></md-datepicker>
+					</div>
+					<div class="input-group" style="width: 100%; padding-top: 20px;">
+						<md-datepicker ng-model="myDateToFilt" md-placeholder="To"></md-datepicker>
+					</div>
+					<div layout="column" layout-align="center center" style="padding-top: 20px;">
+						<md-button class="md-raised">Filter</md-button>
+					</div>
+				</div>
 			</div>
 			<div id="settings-view-menu-bottom" class="settings-view-menu-bottom">
 				<div id="settings-view-menu-bottom-align" class="settings-view-menu-bottom-align" 
