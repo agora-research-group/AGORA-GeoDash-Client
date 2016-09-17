@@ -31,14 +31,7 @@
 						</div>
 						<div class="col-md-10" style="padding-bottom: 8px;">
 							<div class="input-group">
-								<input type="text" class="form-control" placeholder="From"
-									datetime-picker="dd MMM yyyy HH:mm" ng-model="myDateFrom"
-									is-open="isOpenFrom" /> <span class="input-group-btn">
-									<button type="button" class="btn btn-default"
-										ng-click="openCalendarFrom($event, prop)">
-										<i class="glyphicon glyphicon-calendar"></i>
-									</button>
-								</span>
+								<md-datepicker ng-model="myDateFromFilt" md-placeholder="From" style="width:100%;"></md-datepicker>
 							</div>
 						</div>
 					</div>
@@ -47,16 +40,7 @@
 							<label class="control-label" for="textinput">To</label>
 						</div>
 						<div class="col-md-10" style="padding-bottom: 8px;">
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="To"
-									datetime-picker="dd MMM yyyy HH:mm" ng-model="myDateTo"
-									is-open="isOpenTo" /> <span class="input-group-btn">
-									<button type="button" class="btn btn-default"
-										ng-click="openCalendarTo($event, prop)">
-										<i class="glyphicon glyphicon-calendar"></i>
-									</button>
-								</span>
-							</div>
+							<md-datepicker ng-model="myDateFromFilt" md-placeholder="From" style="width:100%;"></md-datepicker>
 						</div>
 					</div>
 					<div class="form-group">
@@ -174,16 +158,16 @@
 				</div>
 				<hr/>
 				<div style="margin: auto; width: 100%; text-align: center; ">
-				 	<h1><small>Filters</small></h1>
+				 	<h1><small>Filter</small></h1>
 				</div>
 				<hr/>
 				<div layout="column">
 					<div class="input-group" style="width: 100%;">
 						<md-input-container style="width:100%;">
 				          <label>Decision</label>
-				          <md-select ng-model="ctrl.userState">
+				          <md-select ng-model="selectedDecision">
 				            <md-option><em>None</em></md-option>
-				            <md-option ng-value="user" ng-repeat="user in users">{{user.name}}</md-option>
+				            <md-option ng-value="decision" ng-repeat="decision in decisions">{{decision.description}}</md-option>
 				          </md-select>
 				        </md-input-container>
 					</div>

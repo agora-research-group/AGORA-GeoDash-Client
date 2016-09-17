@@ -56,14 +56,25 @@
 		});
 		
 	};
+	
+	function list($scope, $http) {
+		$http.get('http://localhost:8080/decision/list')
+    	.then(function (res) {
+    		console.log("resposta!");
+    		$scope.decisions = res.data; 
+    	})
+    	.catch(function (err) {
+    		console.log(err);
+    	});
+	}
 
 	function HomeController($scope, $http, $log) {
 		$log.debug('HomeController');
-
-		$scope.isOpenFrom = false;
-		$scope.isOpenFromTo = false;
-		$scope.isOpenFromFilt = false;
-		$scope.isOpenFromToFilt = false;
+		
+		$scope.decisions = [];
+		$scope.selectedDecision = null;
+		
+		list($scope, $http);
 		
 		$scope.showFilters = function() {
 			$scope.isFitOpen = true;
@@ -81,34 +92,6 @@
     		$scope.isSetOpen = false;
 	    };
 		
-		$scope.openCalendarFrom = function(e) {
-	        e.preventDefault();
-	        e.stopPropagation();
-
-	        $scope.isOpenFrom = true;
-	    };
-	    
-	    $scope.openCalendarTo = function(e) {
-	        e.preventDefault();
-	        e.stopPropagation();
-
-	        $scope.isOpenTo = true;
-	    };
-	    
-	    $scope.openCalendarFromFilt = function(e) {
-	        e.preventDefault();
-	        e.stopPropagation();
-
-	        $scope.isOpenFromFilt = true;
-	    };
-	    
-	    $scope.openCalendarToFilt = function(e) {
-	        e.preventDefault();
-	        e.stopPropagation();
-
-	        $scope.isOpenToFilt = true;
-	    };
-
 	    $scope.users  = [
 	                      	            { id: 1, name: 'Scooby Doo' },
 	                      	            { id: 2, name: 'Shaggy Rodgers' },
