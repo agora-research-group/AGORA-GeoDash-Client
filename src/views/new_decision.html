@@ -1,81 +1,84 @@
 <section data-ng-controller="NewDecisionController as vm">
-	<div class="container-fluid" style="height: 100%;padding-left:0px;">
+	<div class="container-fluid" style="height: 100%; padding-left: 0px;">
 		<div id="settings-menu" class="settings-menu">
 			<div id="settings-view-menu-top" class="settings-view-menu-top">
-			 	<div style="margin: auto; width: 60%;">
-				 	<a href="http://www.agora.icmc.usp.br"
-						target="_blank"> <img alt="Agora Research Group"
-						src="/AGORA-GeoDash-client/src/imgs/agora/agora.png"
-						width="120px"/>
+				<div style="margin: auto; width: 60%;">
+					<a href="http://www.agora.icmc.usp.br" target="_blank"> <img
+						alt="Agora Research Group"
+						src="/AGORA-GeoDash-client/src/imgs/agora/agora.png" width="120px" />
 					</a>
 				</div>
-				<hr/>
+				<hr />
 				<div style="margin: auto; width: 50%;">
-				 	<h1><small>Decision</small></h1>
+					<h1>
+						<small>Decision</small>
+					</h1>
 				</div>
-				<hr/>	
+				<hr />
 				<div class="media" style="padding-left: 20px;">
-				  <div class="media-left media-middle">
-				    <a href="ListDecisions">
-				      <img class="media-object" src="/AGORA-GeoDash-client/src/imgs/icons/information.png"
-				       	width="25px">
-				    </a>
-				  </div>
-				  <div class="media-body">
-				    <a href="ListDecisions">
-				    	<h4>List</h4>
-				    </a>
-				  </div>
+					<div class="media-left media-middle">
+						<a href="ListDecisions"> <img class="media-object"
+							src="/AGORA-GeoDash-client/src/imgs/icons/information.png"
+							width="25px">
+						</a>
+					</div>
+					<div class="media-body">
+						<a href="ListDecisions">
+							<h4>List</h4>
+						</a>
+					</div>
 				</div>
 			</div>
 			<div id="settings-view-menu-bottom" class="settings-view-menu-bottom">
-				<div id="settings-view-menu-bottom-align" class="settings-view-menu-bottom-align">
+				<div id="settings-view-menu-bottom-align"
+					class="settings-view-menu-bottom-align">
 					<div class="media" style="padding-left: 20px">
-					  <div class="media-left media-middle">
-					    <a href="/AGORA-GeoDash-client/src/">
-					      <img class="media-object" src="/AGORA-GeoDash-client/src/imgs/icons/home.png"
-					       	width="25px">
-					    </a>
-					  </div>
-					  <div class="media-body">
-					    <a href="/AGORA-GeoDash-client/src/">
-					    	<h4>Home</h4>
-					    </a>
-					  </div>
+						<div class="media-left media-middle">
+							<a href="/AGORA-GeoDash-client/src/"> <img
+								class="media-object"
+								src="/AGORA-GeoDash-client/src/imgs/icons/home.png" width="25px">
+							</a>
+						</div>
+						<div class="media-body">
+							<a href="/AGORA-GeoDash-client/src/">
+								<h4>Home</h4>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="settings-view" id="settings-view">
-		    <form class="form-horizontal">
-			  <fieldset>
-			    <div id="legend">
-			      <legend class="">New Decision</legend>
-			    </div>
-			     
-			    <div class="form-group" style="padding-left: 12px; padding-right: 15px;">
-			      <label for="name">Title</label>
-			      <div class="controls">
-			        <input type="text" id="title" name="tile" placeholder="Title" class="form-control"
-			        	ng-model="decision.title">
-			      </div>
-			    </div>
-			 
-			    <div class="form-group" style="padding-left: 12px; padding-right: 15px;">
-			      <label for="name">Description</label>
-			      <div class="controls">
-			        <textarea type="text" id="description" name="description" placeholder="Description" class="form-control"
-			        	ng-model="decision.description"></textarea>
-			      </div>
-			    </div>
-			 
-			     <div class="form-group" style="padding-left: 12px; padding-right: 15px;">
-			      <div class="controls">
-			        <button class="btn btn-default" ng-click="register()">Register</button>
-			      </div>
-			    </div>
-			  </fieldset>
-			</form>
+			<md-content layout-padding>
+				<form name="decForm" novalidate>
+					<div id="legend">
+						<legend class="">New Decision</legend>
+					</div>
+	
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Title</label> <input ng-model="decision.title" 
+							name="title" md-maxlength="30">
+					</md-input-container>
+	
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Description</label> <input ng-model="decision.description">
+					</md-input-container>
+					
+					<md-chips ng-model="selectedInfReqs" md-autocomplete-snap
+						md-require-match="true"> <md-autocomplete
+						md-selected-item="selectedItem" md-search-text="searchText"
+						md-items="item in querySearch(searchText)"
+						md-item-text="item.title" placeholder="Search for an information">
+						<span md-highlight-text="searchText">{{item.title}}</span> </md-autocomplete> <md-chip-template>
+						<span> <strong>{{$chip.title}}</strong>
+						</span> </md-chip-template> 
+					</md-chips>
+	
+					<br />
+	
+					<md-button class="md-raised" ng-click="register()">Register</md-button>
+				</form>
+			</md-content>
 		</div>
 	</div>
 </section>
