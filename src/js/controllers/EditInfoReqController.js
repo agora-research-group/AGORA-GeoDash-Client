@@ -16,29 +16,30 @@
     	});
 	}
 	
+	function findInfReq (id, scope, http) {
+		http({
+            url: 'http://localhost:8080/informationRequirement/find'
+                , method: 'POST'
+                , data: id
+                , header: {'content-type':'application/json'}
+            }).success(function (response) {
+            	scope.infoReq = response;
+            	scope.selectedItem = scope.infoReq.dataSource;
+            }).error(function (error) {
+                console.log('error'+error);
+            });
+	}
+	
 	function EditInfoReqController($scope, $http, $log, $location, $routeParams) {
 		$log.debug('EditInfoReqController');
 		
 		$scope.infoReq={id:null,title:'',description:''};
 		$scope.paramId = $routeParams.id;
-		
-		$scope.infoReq={id:null,title:'',description:''};
 		$scope.dataSources = [];
 		$scope.selectedItem = null;
 		
 		listDataSources($scope, $http);
-		
-		$http({
-            url: 'http://localhost:8080/informationRequirement/find'
-                , method: 'POST'
-                , data: $routeParams.id
-                , header: {'content-type':'application/json'}
-            }).success(function (response) {
-            	$scope.infoReq = response;
-            	$scope.selectedItem = $scope.infoReq.dataSource;
-            }).error(function (error) {
-                console.log('error'+error);
-            });
+		findInfReq($routeParams.id, $scope, $http);		
 		
 		$scope.register = function() {
 			var infoReq = $scope.infoReq;
@@ -51,11 +52,11 @@
 	                , header: {'content-type':'application/json'}
 	            }).success(function (response) {
 	                console.log('success', response);
+	                $location.path("ListInfoReqs");
 	            }).error(function (error) {
 	                console.log('error'+error);
 	            });
 			
-			$location.path("ListInfoReqs");
 		}
 	}
 

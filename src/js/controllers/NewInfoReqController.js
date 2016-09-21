@@ -36,11 +36,11 @@
 	                , header: {'content-type':'application/json'}
 	            }).success(function (response) {
 	                console.log('success', response);
+	                $location.path("ListInfoReqs");
 	            }).error(function (error) {
 	                console.log('error'+error);
 	            });
 			
-			$location.path("ListInfoReqs");
 		}
 	}
 

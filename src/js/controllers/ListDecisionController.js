@@ -9,6 +9,7 @@
 		$http.get('http://localhost:8080/decision/list')
     	.then(function (res) {
     		console.log("resposta!");
+    		console.log(res.data);
     		$scope.decisions = res.data; 
     	})
     	.catch(function (err) {

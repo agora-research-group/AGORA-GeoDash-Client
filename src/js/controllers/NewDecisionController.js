@@ -57,11 +57,10 @@
 	                , header: {'content-type':'application/json'}
 	            }).success(function (response) {
 	                console.log('success', response);
+	                $location.path("ListDecisions");
 	            }).error(function (error) {
 	                console.log('error'+error);
 	            });
-			
-			$location.path("ListDecisions");
 		}
 	}
 

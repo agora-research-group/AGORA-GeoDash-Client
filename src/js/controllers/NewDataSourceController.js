@@ -18,11 +18,11 @@
 	                , header: {'content-type':'application/json'}
 	            }).success(function (response) {
 	                console.log('success', response);
+	                $location.path("/ListDataSources");
 	            }).error(function (error) {
 	                console.log('error'+error);
 	            });
 			
-			$location.path("/ListDataSources");
 		}
 	}
 

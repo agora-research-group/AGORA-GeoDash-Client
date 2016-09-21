@@ -5,22 +5,26 @@
 	angular.module('agora-geodash')
 			.controller('EditDataSourceController', EditDataSourceController);
 
+	function findDataSource(id, scope, http) {
+		http({
+            url: 'http://localhost:8080/dataSource/find'
+                , method: 'POST'
+                , data: id
+                , header: {'content-type':'application/json'}
+            }).success(function (response) {
+            	scope.dataSource = response;
+            }).error(function (error) {
+                console.log('error'+error);
+            });
+	}
+	
 	function EditDataSourceController($scope, $http, $log, $location, $routeParams) {
 		$log.debug('EditDataSourceController');
 		
 		$scope.dataSource={id:null,title:'',description:''};
 		$scope.paramId = $routeParams.id;
 		
-		$http({
-            url: 'http://localhost:8080/dataSource/find'
-                , method: 'POST'
-                , data: $routeParams.id
-                , header: {'content-type':'application/json'}
-            }).success(function (response) {
-            	$scope.dataSource = response;
-            }).error(function (error) {
-                console.log('error'+error);
-            });
+		findDataSource($routeParams.id, $scope, $http);
 		
 		$scope.register = function() {
 			$http({

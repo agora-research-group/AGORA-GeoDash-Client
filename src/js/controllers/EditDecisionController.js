@@ -29,37 +29,37 @@
 
     }
 	
+	function findDecision(id, scope, http) {
+		http({
+            url: 'http://localhost:8080/decision/find'
+                , method: 'POST'
+                , data: id
+                , header: {'content-type':'application/json'}
+            }).success(function (response) {
+            	scope.decision = response;
+            	scope.selectedInfReqs = scope.decision.infReqs;
+            }).error(function (error) {
+                console.log('error'+error);
+            });
+	}
+	
 	function EditDecisionController($scope, $http, $log, $location, $routeParams) {
 		$log.debug('EditDecisionController');
 		
 		$scope.decision={id:null,title:'',description:''};
 		$scope.paramId = $routeParams.id;
-		
 		$scope.infReqs = [];
 		$scope.selectedInfReqs = [];
 		$scope.selectedItem = null;
 		$scope.searchText = null;
 		
-		$scope.decision={id:null,title:'',description:''};
-
 		listInfoReqs($scope, $http);
+		findDecision($routeParams.id, $scope, $http);
 		
 		$scope.querySearch = function(query) {
 	      var results = query ? $scope.infReqs.filter(createFilterFor(query)) : [];
 	      return results;
 	    };
-		
-		$http({
-            url: 'http://localhost:8080/decision/find'
-                , method: 'POST'
-                , data: $routeParams.id
-                , header: {'content-type':'application/json'}
-            }).success(function (response) {
-            	$scope.decision = response;
-            	$scope.selectedInfReqs = $scope.decision.infReqs;
-            }).error(function (error) {
-                console.log('error'+error);
-            });
 		
 		$scope.register = function() {
 			var decision = $scope.decision;
@@ -72,11 +72,11 @@
 	                , header: {'content-type':'application/json'}
 	            }).success(function (response) {
 	                console.log('success', response);
+	                $location.path("ListDecisions");
 	            }).error(function (error) {
 	                console.log('error'+error);
 	            });
 			
-			$location.path("ListDecisions");
 		}
 	}
 
