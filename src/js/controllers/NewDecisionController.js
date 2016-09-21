@@ -37,7 +37,7 @@
 		$scope.selectedItem = null;
 		$scope.searchText = null;
 		
-		$scope.decision={id:null,title:'',description:''};
+		$scope.decision=null;
 
 		listInfoReqs($scope, $http);
 		

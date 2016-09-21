@@ -47,34 +47,31 @@
 			</div>
 		</div>
 		<div class="settings-view" id="settings-view">
-		    <form class="form-horizontal">
-			  <fieldset>
-			    <div id="legend">
-			      <legend class="">New Data Source</legend>
-			    </div>
-			     
-			    <div class="form-group" style="padding-left: 12px; padding-right: 15px;">
-			      <label for="name">Title</label>
-			      <div class="controls">
-			        <input type="text" id="title" name="tile" placeholder="Title" class="form-control"
-			        	ng-model="dataSource.title">
-			      </div>
-			    </div>
-			 
-			    <div class="form-group" style="padding-left: 12px; padding-right: 15px;">
-			      <label for="name">Description</label>
-			      <div class="controls">
-			        <textarea type="text" id="description" name="description" placeholder="Description" class="form-control"
-			        	ng-model="dataSource.description"></textarea>
-			      </div>
-			    </div>
-			 
-			     <div class="form-group" style="padding-left: 12px; padding-right: 15px;">
-			      <div class="controls">
-			        <button class="btn btn-default" ng-click="register()">Register</button>
-			      </div>
-			    </div>
-			  </fieldset>
+		    <form name="dsForm" novalidate ng-submit="register()" >
+				<div id="legend">
+					<legend class="">New Data Source</legend>
+				</div>
+
+				<md-input-container class="md-block" flex-gt-sm>
+					<label>Title</label> 
+					<input md-maxlength="30" required name="dsTitle" ng-model="dataSource.title">
+					
+					<div ng-messages="dsForm.dsTitle.$error" 
+					     ng-if="dsForm.dsTitle.$dirty">
+			       		<div ng-message="required">Title is required.</div>
+			            <div ng-message="md-maxlength">The title has to be less than 30 characters long.</div>
+					</div>
+				</md-input-container>
+
+				<md-input-container class="md-block" flex-gt-sm>
+					<label>Description</label> 
+					<input ng-model="dataSource.description">
+				</md-input-container>
+
+				<br />
+
+				<md-button class="md-raised" type="submit"
+						   ng-disabled="!dsForm.$valid">Register</md-button>
 			</form>
 		</div>
 	</div>

@@ -48,34 +48,45 @@
 		</div>
 		<div class="settings-view" id="settings-view">
 		    <md-content layout-padding>
-				<form name="decForm" novalidate>
+				<form name="infoForm" novalidate ng-submit="register()" >
 					<div id="legend">
 						<legend class="">New Information Requirement</legend>
 					</div>
 	
 					<md-input-container class="md-block" flex-gt-sm>
-						<label>Title</label> <input ng-model="infoReq.title" 
-							name="title" md-maxlength="30">
+						<label>Title</label> 
+						<input ng-model="infoReq.title" name="infoTitle" md-maxlength="30" required>
+						
+						<div ng-messages="infoForm.infoTitle.$error" 
+						     ng-if="infoForm.infoTitle.$dirty">
+				       		<div ng-message="required">Title is required.</div>
+				            <div ng-message="md-maxlength">The title has to be less than 30 characters long.</div>
+						</div>
 					</md-input-container>
 	
 					<md-input-container class="md-block" flex-gt-sm>
-						<label>Description</label> <input ng-model="infoReq.description">
+						<label>Description</label> 
+						<input ng-model="infoReq.description">
 					</md-input-container>
 					
 					<md-input-container>
 			          <label>Data Source</label>
-			          <md-select ng-model="selectedItem" style="min-width: 200px;">
-			            <md-option><em>None</em></md-option>
-			            <md-option ng-repeat="dataSource in dataSources" ng-value="dataSource" 
-			            		ng-disabled="$index === 1">
+			          
+			          <md-select ng-model="selectedItem" style="min-width: 200px;" name="dataSourceSelect" required>
+			            <md-option ng-repeat="dataSource in dataSources" ng-value="dataSource">
 			              {{dataSource.title}} - {{dataSource.description}} 
 			            </md-option>
 			          </md-select>
+			          
+			          <div ng-messages="infoForm.dataSourceSelect.$error">
+			       		<div ng-message="required">Please select a data source.</div>
+					  </div>
 			        </md-input-container>
 	
 					<br />
 	
-					<md-button class="md-raised" ng-click="register()">Register</md-button>
+					<md-button class="md-raised" type="submit"
+							   ng-disabled="!infoForm.$valid">Register</md-button>
 				</form>
 			</md-content>
 		</div>

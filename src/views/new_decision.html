@@ -50,33 +50,45 @@
 		</div>
 		<div class="settings-view" id="settings-view">
 			<md-content layout-padding>
-				<form name="decForm" novalidate>
+				<form name="decForm" novalidate ng-submit="register()" >
 					<div id="legend">
 						<legend class="">New Decision</legend>
 					</div>
 	
 					<md-input-container class="md-block" flex-gt-sm>
-						<label>Title</label> <input ng-model="decision.title" 
-							name="title" md-maxlength="30">
+						<label>Title</label> 
+						<input md-maxlength="30" required name="decTitle" ng-model="decision.title">
+						
+						<div ng-messages="decForm.decTitle.$error" 
+						     ng-if="decForm.decTitle.$dirty">
+				       		<div ng-message="required">Title is required.</div>
+				            <div ng-message="md-maxlength">The title has to be less than 30 characters long.</div>
+						</div>
 					</md-input-container>
 	
 					<md-input-container class="md-block" flex-gt-sm>
-						<label>Description</label> <input ng-model="decision.description">
+						<label>Description</label> 
+						<input ng-model="decision.description">
 					</md-input-container>
 					
 					<md-chips ng-model="selectedInfReqs" md-autocomplete-snap
-						md-require-match="true"> <md-autocomplete
-						md-selected-item="selectedItem" md-search-text="searchText"
-						md-items="item in querySearch(searchText)"
-						md-item-text="item.title" placeholder="Search for an information">
-						<span md-highlight-text="searchText">{{item.title}}</span> </md-autocomplete> <md-chip-template>
-						<span> <strong>{{$chip.title}}</strong>
-						</span> </md-chip-template> 
+						md-require-match="true"> 
+						
+						<md-autocomplete md-selected-item="selectedItem" md-search-text="searchText"
+							md-items="item in querySearch(searchText)"
+							md-item-text="item.title" placeholder="Search for an information">
+							<span md-highlight-text="searchText">{{item.title}}</span> 
+						</md-autocomplete> 
+						
+						<md-chip-template>
+							<span> <strong>{{$chip.title}}</strong> </span> 
+						</md-chip-template> 
 					</md-chips>
 	
 					<br />
 	
-					<md-button class="md-raised" ng-click="register()">Register</md-button>
+					<md-button class="md-raised" type="submit"
+							   ng-disabled="!decForm.$valid">Register</md-button>
 				</form>
 			</md-content>
 		</div>
