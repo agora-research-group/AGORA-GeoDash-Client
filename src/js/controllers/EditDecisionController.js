@@ -57,10 +57,10 @@
 		findDecision($routeParams.id, $scope, $http);
 		
 		$scope.querySearch = function(query) {
-	      var results = query ? $scope.infReqs.filter(createFilterFor(query)) : [];
-	      return results;
+			var results = query ? $scope.infReqs.filter(createFilterFor(query)) : [];
+			return results;
 	    };
-		
+	    
 		$scope.register = function() {
 			var decision = $scope.decision;
 			decision.infReqs = $scope.selectedInfReqs;
