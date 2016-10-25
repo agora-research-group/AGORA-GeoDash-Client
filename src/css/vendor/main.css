@@ -212,6 +212,10 @@ position: absolute;
 	padding-top: 20px;
 }
 
+.lay-form {
+	background-color: white;
+}
+
 .settings-view-menu-top {
 	height: 80%; 
 	position: relative;
