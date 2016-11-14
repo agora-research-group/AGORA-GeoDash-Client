@@ -5,9 +5,7 @@ var b = 2;
 
 	var a = 1;
 
-	var app = angular.module(
-			'agora-geodash',
-			[ 'ngRoute', 'ui.bootstrap', 'ngAnimate',
+	var app = angular.module('agora-geodash', [ 'ngRoute', 'ui.bootstrap', 'ngAnimate',
 					'ui.bootstrap.datetimepicker', 'angular-table',
 					'angular-confirm', 'ngMaterial', 'ngMessages',
 					'angular-loading-bar' ])

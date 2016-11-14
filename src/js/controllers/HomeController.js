@@ -49,7 +49,7 @@
     	});
 	}
 
-	function HomeController($scope, $http, $log, cfpLoadingBar) {
+	function HomeController($scope, $http, $log, cfpLoadingBar, $mdDialog) {
 		$log.debug('HomeController');
 		
 		$scope.selSensor = null;
@@ -86,7 +86,7 @@
     		$scope.isSetOpen = false;
 	    };
 	    
-	    $scope.filter = function() {
+	    $scope.filter = function(ev) {
 	    	
 	    	$http({
 	            url: 'http://localhost:8080/sensor/getObservation'
@@ -95,6 +95,17 @@
 	                , header: {'content-type':'application/json'}
 	            }).success(function (response) {
 	            	console.log(response)
+	            	
+	            	$mdDialog.show({
+			          templateUrl: 'templates/list_observation.tmpl.html',
+			          parent: angular.element(document.body),
+			          targetEvent: ev,
+			          clickOutsideToClose:true,
+			          locals: {
+			        	  selSensor: $scope.selSensor,
+			          },
+			          controller: 'ListObservationController',
+			        })
 	            }).error(function (error) {
 	                console.log('error'+error);
 	            });
@@ -270,6 +281,6 @@
 				});
 		};
 
-	}
+	};
 
 }(window.angular, window.ol));
