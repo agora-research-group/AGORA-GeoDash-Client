@@ -57,8 +57,8 @@
 		$scope.selectedDecision = null;
 		$scope.properties = [];
 		$scope.selectedProperty = null;
-		$scope.sDateObs = null;
-		$scope.eDateObs = null;
+		$scope.sDateObs = new Date();
+		$scope.eDateObs = new Date();
 		
 		list($scope, $http);
 		
@@ -235,8 +235,8 @@
 			} else {
 				$scope.$apply(function() {
 					$scope.selSensor = null;
-					$scope.sDateObs = null; 
-					$scope.eDateObs = null;
+					$scope.sDateObs = new Date();
+					$scope.eDateObs = new Date();
 					$scope.optShow = false;
 				});
 			};
