@@ -3,51 +3,64 @@
 	<div id="opt-frame" class="opt-frame" ng-show="optShow"
 		ng-init="optShow=false">
 		<div id="opt" class="opt" style="width: 100%">
-			<div class="panel panel-default">
-				<div class="panel-heading">Procedure</div>
-				<div class="panel-body">
-					<div class="form-group">
-						<div class="col-md-4">
-							<label class="control-label" for="textinput">Key-ID:</label>
+			<div layout="column">
+				<div class="panel panel-default">
+					<div class="panel-heading">Procedure</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<div class="col-md-4">
+								<label class="control-label" for="textinput">ID:</label>
+							</div>
+							<div class="col-md-7" style="padding-bottom: 8px;">
+								{{selSensor.id}}</div>
 						</div>
-						<div class="col-md-8" style="padding-bottom: 8px;">
-							DIAD-11923123-DJASJD-7216512</div>
-					</div>
-					<div class="form-group">
-						<div class="col-md-4">
-							<label class="control-label" for="textinput">Description:</label>
+						<div class="form-group">
+							<div class="col-md-4">
+								<label class="control-label" for="textinput">Name:</label>
+							</div>
+							<div class="col-md-7" style="padding-bottom: 8px;">{{selSensor.name}}</div>
 						</div>
-						<div class="col-md-8" style="padding-bottom: 8px;">SENSOR -
-							SHOPPING</div>
+						<div class="form-group">
+							<div class="col-md-4">
+								<label class="control-label" for="textinput">City:</label>
+							</div>
+							<div class="col-md-7" style="padding-bottom: 8px;">{{selSensor.city}}/{{selSensor.state}}</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">
+								<label class="control-label" for="textinput">Agency:</label>
+							</div>
+							<div class="col-md-7" style="padding-bottom: 8px;">{{selSensor.agency}}</div>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="panel panel-default" style="width: 100%">
-				<div class="panel-heading">Observation</div>
-				<div class="panel-body" style="width: 100%">
-					<div class="form-group">
-						<div class="col-md-2">
-							<label class="control-label" for="textinput">From</label>
+				<div class="panel panel-default" style="width: 100%">
+					<div class="panel-heading">Observation</div>
+					<div class="panel-body" style="width: 100%">
+						<div class="form-group">
+							<md-input-container style="width: 100%">
+							  <label>Property</label>
+					          <md-select ng-model="selectedProperty">
+					            <md-option><em>Property</em></md-option>
+					            <md-option ng-value="property" ng-repeat="property in properties">{{property.stype}}</md-option>
+					          </md-select>
 						</div>
-						<div class="col-md-10" style="padding-bottom: 8px;">
-							<div class="input-group">
-								<md-datepicker ng-model="myDateFromFilt" md-placeholder="From" style="width:100%;"></md-datepicker>
+						<div class="form-group">
+							<div style="width: 100%">
+								<div class="input-group">
+									<md-datepicker ng-model="sDateObs" md-placeholder="From"></md-datepicker>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div style="width: 100%">
+								<md-datepicker ng-model="eDateObs" md-placeholder="To"></md-datepicker>
 							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<div class="col-md-2">
-							<label class="control-label" for="textinput">To</label>
-						</div>
-						<div class="col-md-10" style="padding-bottom: 8px;">
-							<md-datepicker ng-model="myDateFromFilt" md-placeholder="From" style="width:100%;"></md-datepicker>
-						</div>
-					</div>
-					<div class="form-group">
-    					<div class="col-md-12" style="padding-left: 0; width: 10px;">
- 							<div id="chart" style="width: 21%; height: 230px;"/>
-						</div>
-					</div>
+				</div>
+				<div  style="margin: auto; width: 40%;">
+					<md-button class="md-raised" ng-click="filter()">Filter</md-button>
 				</div>
 			</div>
 		</div>
@@ -62,12 +75,12 @@
 							width="20px" height="20px" ng-click="openSettings()"/>
 						</a>
 					</div>
-					<div class="navbar-header">
-						<a class="navbar-icons" href="#"> <img title="Filter"
-							src="/AGORA-GeoDash-client/src/imgs/icons/filter-simple.png"
-		       				width="20px" ng-click="showFilters()" >
-						</a>
-					</div>
+<!-- 					<div class="navbar-header"> -->
+<!-- 						<a class="navbar-icons" href="#"> <img title="Filter" -->
+<!-- 							src="/AGORA-GeoDash-client/src/imgs/icons/filter-simple.png" -->
+<!-- 		       				width="20px" ng-click="showFilters()" > -->
+<!-- 						</a> -->
+<!-- 					</div> -->
 					<div class="collapse navbar-collapse"
 						id="bs-example-navbar-collapse-1">
 						<form class="navbar-form navbar-left" role="search">

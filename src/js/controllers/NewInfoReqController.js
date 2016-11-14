@@ -8,7 +8,6 @@
 	function listDataSources($scope, $http) {
 		$http.get('http://localhost:8080/dataSource/list')
     	.then(function (res) {
-    		console.log("resposta!");
     		$scope.dataSources = res.data; 
     	})
     	.catch(function (err) {

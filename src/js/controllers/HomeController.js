@@ -5,62 +5,43 @@
 	angular.module('agora-geodash')
 			.controller('HomeController', HomeController);
 
-	function getObservation(feature, http, scope) {
-		var success = function(response) {
-			alert(response.data.text);
-		}
-
-		http.post('http://localhost:8080/sos/describesensor')
-			.then(function(response) {
-				return response.data;
-			}, function(errResponse) {
-				console.error('Error');
-				// return $q.reject(errResponse);
-			});
+	function getSensor(feature, $http, $scope) {
+		$scope.start();
 		
-		var chartSeries = [{"name": "Some data", "data": [1, 2, 4, 7, 3]}];
-		
-		Highcharts.chart('chart', {
-			options: {
-		      chart: {
-		        type: 'areaspline',
-		        renderTo: 'chart',
-		        events: {
-	                load: function () {
-	                    alert('The chart is being redrawn');
-	                }
-	            }
-		      },
-		      plotOptions: {
-		        series: {
-		          stacking: ''
-		        }
-		      }
-		    },
-		    legend: {
-		    	backgroundColor: '#FCFFC5'
-	        },
-		    series: chartSeries,
-		    title: {
-		      text: ''
-		    },
-		    credits: {
-		      enabled: false
-		    },
-		    loading: false,
-		    yAxis: {
-		    	title: {
-		    		text: "Values (cm)"
-		    	}
-		    }
-		});
+		$http({
+            url: 'http://localhost:8080/sensor/find'
+                , method: 'POST'
+                , data: feature.i
+                , header: {'content-type':'application/json'}
+            }).success(function (response) {
+            	$scope.selSensor = response;
+            	getProperty($scope, $http, feature)
+            }).error(function (error) {
+                console.log('error'+error);
+            });
 		
 	};
+	
+	function getProperty($scope, $http, feature) {
+		$http({
+            url: 'http://localhost:8080/sensor/listProperty'
+                , method: 'POST'
+                , data: feature.i
+                , header: {'content-type':'application/json'}
+            }).success(function (response) {
+            	$scope.properties = response;
+            	console.log($scope.properties);
+            	$scope.complete();
+            	$scope.optShow = true;
+            }).error(function (error) {
+                console.log('error'+error);
+            });
+	}
+	
 	
 	function list($scope, $http) {
 		$http.get('http://localhost:8080/decision/list')
     	.then(function (res) {
-    		console.log("resposta!");
     		$scope.decisions = res.data; 
     	})
     	.catch(function (err) {
@@ -68,13 +49,26 @@
     	});
 	}
 
-	function HomeController($scope, $http, $log) {
+	function HomeController($scope, $http, $log, cfpLoadingBar) {
 		$log.debug('HomeController');
 		
+		$scope.selSensor = null;
 		$scope.decisions = [];
 		$scope.selectedDecision = null;
+		$scope.properties = [];
+		$scope.selectedProperty = null;
+		$scope.sDateObs = null;
+		$scope.eDateObs = null;
 		
 		list($scope, $http);
+		
+		$scope.start = function() {
+	      cfpLoadingBar.start();
+	    };
+
+	    $scope.complete = function () {
+	      cfpLoadingBar.complete();
+	    }
 		
 		$scope.showFilters = function() {
 			$scope.isFitOpen = true;
@@ -91,27 +85,21 @@
 	    $scope.closeSettings = function() {
     		$scope.isSetOpen = false;
 	    };
-		
-	    $scope.users  = [
-	                      	            { id: 1, name: 'Scooby Doo' },
-	                      	            { id: 2, name: 'Shaggy Rodgers' },
-	                      	            { id: 3, name: 'Fred Jones' },
-	                      	            { id: 4, name: 'Daphne Blake' },
-	                      	            { id: 5, name: 'Velma Dinkley' }
-	                      	          ];
 	    
-	    var twitterSource = new ol.source.Vector();
-		var twitter = new ol.layer.Vector({
-			title : 'Twitter',
-			source : twitterSource,
-			style : new ol.style.Style({
-				image : new ol.style.Icon(({
-					opacity : 0.75,
-					scale : 1,
-					src : twitterUrl,
-				})),
-			}),
-		});
+	    $scope.filter = function() {
+	    	
+	    	$http({
+	            url: 'http://localhost:8080/sensor/getObservation'
+	                , method: 'POST'
+	                , data: {id: $scope.selSensor.id, sDate: $scope.sDateObs, eDate: $scope.eDateObs}
+	                , header: {'content-type':'application/json'}
+	            }).success(function (response) {
+	            	console.log(response)
+	            }).error(function (error) {
+	                console.log('error'+error);
+	            });
+	    	
+	    };
 	    
 		var cemadenSource = new ol.source.Vector();
 		var cemaden = new ol.layer.Vector({
@@ -120,8 +108,8 @@
 			style : new ol.style.Style({
 				image : new ol.style.Icon(({
 					opacity : 0.75,
-					scale : 0.30,
-					src : cemadenUrl,
+					scale : 0.06,
+					src: iconUrl,
 				})),
 			}),
 		});
@@ -133,20 +121,7 @@
 			style : new ol.style.Style({
 				image : new ol.style.Icon(({
 					opacity : 0.75,
-					scale : 0.05,
-					src : iconUrl,
-				})),
-			}),
-		});
-		
-		var vectorSource = new ol.source.Vector();
-		var vector = new ol.layer.Vector({
-			title : 'Sensors',
-			source : vectorSource,
-			style : new ol.style.Style({
-				image : new ol.style.Icon(({
-					opacity : 0.75,
-					scale : 0.05,
+					scale : 0.06,
 					src : iconUrl,
 				})),
 			}),
@@ -171,7 +146,7 @@
 				}), ],
 			}), new ol.layer.Group({
 				'title' : 'Overlaps',
-				layers : [ vector, cemaden, cemadenHy, twitter ],
+				layers : [ cemaden, cemadenHy ],
 			}), ],
 			view : new ol.View({
 				center : ol.proj.fromLonLat([ -47.890926, -22.008708 ]),
@@ -179,27 +154,6 @@
 				maxZoom : 19,
 				minZoom : 4,
 			}),
-		});
-
-		var f = ol.format.ogc.filter;
-		var featureRequest = new ol.format.WFS().writeGetFeature({
-			srsName : 'EPSG:3857',
-			featureNS : 'http://www.agora.icmc.usp.br/agora',
-			featurePrefix : 'agora',
-			featureTypes : [ 'sensors' ],
-			outputFormat : 'application/json',
-			geometryName : 'Point',
-			filter : ol.format.ogc.filter.equalTo('offering', 'GAUGE_HEIGHT')
-		});
-
-		fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-			method : 'POST',
-			body : new XMLSerializer().serializeToString(featureRequest)
-		}).then(function(response) {
-			return response.json();
-		}).then(function(json) {
-			var features = new ol.format.GeoJSON().readFeatures(json);
-			vectorSource.addFeatures(features);
 		});
 		
 		var f = ol.format.ogc.filter;
@@ -243,29 +197,6 @@
 			var features = new ol.format.GeoJSON().readFeatures(json);
 			cemadenHySource.addFeatures(features);
 		});
-		
-		var f = ol.format.ogc.filter;
-		var featureRequest = new ol.format.WFS().writeGetFeature({
-			srsName : 'EPSG:3857',
-			featureNS : 'http://www.agora.icmc.usp.br/agora',
-			featurePrefix : 'agora',
-			featureTypes : [ 'saopauloprioritization_tweets' ],
-			outputFormat : 'application/json',
-			geometryName : 'Point',
-			filter : ol.format.ogc.filter.equalTo('id_str', '712978920128249857'),
-			
-		});
-
-		fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-			method : 'POST',
-			body : new XMLSerializer().serializeToString(featureRequest)
-		}).then(function(response) {
-			return response.json();
-		}).then(function(json) {
-			var features = new ol.format.GeoJSON().readFeatures(json);
-			twitterSource.addFeatures(features);
-			console.log(features);
-		});
 
 		// select interaction working on "click"
 		var select = new ol.interaction.Select({
@@ -273,7 +204,7 @@
 			style : new ol.style.Style({
 				image : new ol.style.Icon(({
 					opacity : 0.40,
-					scale : 0.05,
+					scale : 0.06,
 					src : iconUrl,
 				})),
 			}),
@@ -288,11 +219,13 @@
 			if (selected.length) {
 				selected.forEach(function(feature) {
 					feature = feature;
-					$scope.optShow = true;
-					getObservation(feature, $http, $scope);
+					getSensor(feature, $http, $scope);
 				});
 			} else {
 				$scope.$apply(function() {
+					$scope.selSensor = null;
+					$scope.sDateObs = null; 
+					$scope.eDateObs = null;
 					$scope.optShow = false;
 				});
 			};
