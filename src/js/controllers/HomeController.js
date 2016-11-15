@@ -30,7 +30,6 @@
                 , header: {'content-type':'application/json'}
             }).success(function (response) {
             	$scope.properties = response;
-            	console.log($scope.properties);
             	$scope.complete();
             	$scope.optShow = true;
             }).error(function (error) {
@@ -95,8 +94,6 @@
 	                , data: {id: $scope.selSensor.id, sDate: $scope.sDateObs, eDate: $scope.eDateObs}
 	                , header: {'content-type':'application/json'}
 	            }).success(function (response) {
-	            	console.log(response);
-	            	
 	            	$scope.observations = response;
 	            	
 	            	$mdDialog.show({
@@ -122,10 +119,21 @@
 	    };
 	    
 	    $scope.drawChart = function(){
-	    	console.log($scope.observations)
+	    	var axisX = [];
+	    	var axisY = [];
 	    	
-	    	var chartSeries = [{"name": $scope.observations.datetime, "data": $scope.observations.measure}];
-			
+	    	for (var i = 0; i < $scope.observations.length; i++) {
+	    		if ($scope.observations[i].measure == null) {
+	    			axisY.push(0);
+	    		} else {
+	    			axisY.push($scope.observations[i].measure);
+	    		}
+	    		
+	    		axisX.push($scope.observations[i].date + " " + $scope.observations[i].time);
+	    	}
+	    	
+	    	var chartSeries = [{"name": $scope.selSensor.id, "data": axisY}];
+	    	
 			Highcharts.chart('container', {
 				options: {
 			      chart: {
@@ -143,6 +151,9 @@
 			        }
 			      }
 			    },
+			    xAxis: { 
+			    	categories: axisX
+			    },
 			    legend: {
 			    	backgroundColor: '#FCFFC5'
 		        },
@@ -156,7 +167,7 @@
 			    loading: false,
 			    yAxis: {
 			    	title: {
-			    		text: "Values (cm)"
+			    		text: "(cm)"
 			    	}
 			    }
 			});
