@@ -59,6 +59,7 @@
 		$scope.selectedProperty = null;
 		$scope.sDateObs = new Date();
 		$scope.eDateObs = new Date();
+		$scope.observations = [];
 		
 		list($scope, $http);
 		
@@ -94,7 +95,9 @@
 	                , data: {id: $scope.selSensor.id, sDate: $scope.sDateObs, eDate: $scope.eDateObs}
 	                , header: {'content-type':'application/json'}
 	            }).success(function (response) {
-	            	console.log(response)
+	            	console.log(response);
+	            	
+	            	$scope.observations = response;
 	            	
 	            	$mdDialog.show({
 			          templateUrl: 'templates/list_observation.tmpl.html',
@@ -103,16 +106,63 @@
 			          clickOutsideToClose:true,
 			          locals: {
 			        	  selSensor: $scope.selSensor,
+			        	  sDateObs: $scope.sDateObs,
+			        	  eDateObs: $scope.eDateObs,
+			        	  observations: response,
 			          },
 			          controller: 'ListObservationController',
-			        })
+			          onComplete: function(){
+			        	  $scope.drawChart();
+			          }
+			        });
 	            }).error(function (error) {
 	                console.log('error'+error);
 	            });
 	    	
 	    };
 	    
-		var cemadenSource = new ol.source.Vector();
+	    $scope.drawChart = function(){
+	    	console.log($scope.observations)
+	    	
+	    	var chartSeries = [{"name": $scope.observations.datetime, "data": $scope.observations.measure}];
+			
+			Highcharts.chart('container', {
+				options: {
+			      chart: {
+			        type: 'areaspline',
+			        renderTo: 'container',
+			        events: {
+		                load: function () {
+		                    alert('The chart is being redrawn');
+		                }
+		            }
+			      },
+			      plotOptions: {
+			        series: {
+			          stacking: ''
+			        }
+			      }
+			    },
+			    legend: {
+			    	backgroundColor: '#FCFFC5'
+		        },
+			    series: chartSeries,
+			    title: {
+			      text: ''
+			    },
+			    credits: {
+			      enabled: false
+			    },
+			    loading: false,
+			    yAxis: {
+			    	title: {
+			    		text: "Values (cm)"
+			    	}
+			    }
+			});
+	    }
+
+	    var cemadenSource = new ol.source.Vector();
 		var cemaden = new ol.layer.Vector({
 			title : 'Cemaden',
 			source : cemadenSource,
