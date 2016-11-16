@@ -87,6 +87,16 @@
     		$scope.isSetOpen = false;
 	    };
 	    
+	    $scope.configureSensor = function(ev) {
+	    	$mdDialog.show({
+		          templateUrl: 'templates/configure_sensor.tmpl.html',
+		          parent: angular.element(document.body),
+		          targetEvent: ev,
+		          clickOutsideToClose:true,
+		          controller: 'ConfigureSensorController',
+		        });
+	    }
+	    
 	    $scope.filter = function(ev) {
 	    	
 	    	$http({
