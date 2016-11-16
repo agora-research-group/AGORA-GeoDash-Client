@@ -18,13 +18,13 @@
 							<div class="col-md-4">
 								<label class="control-label" for="textinput">Name:</label>
 							</div>
-							<div class="col-md-7" style="padding-bottom: 8px;">{{selSensor.name}}</div>
+							<div class="col-md-7" style="padding-bottom: 8px;">{{selSensor.name | limitTo : 16 : 0}} ...</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-4">
 								<label class="control-label" for="textinput">City:</label>
 							</div>
-							<div class="col-md-7" style="padding-bottom: 8px;">{{selSensor.city}}/{{selSensor.state}}</div>
+							<div class="col-md-7" style="padding-bottom: 8px;">{{selSensor.city | limitTo : 21 : 0}}/{{selSensor.state}}</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-4">
@@ -40,8 +40,7 @@
 						<div class="form-group">
 							<md-input-container style="width: 100%">
 							  <label>Property</label>
-					          <md-select ng-model="selectedProperty">
-					            <md-option><em>Property</em></md-option>
+					          <md-select ng-model="selectedProperty" ng-model-options="{trackBy: '$value.id'}">
 					            <md-option ng-value="property" ng-repeat="property in properties">{{property.stype}}</md-option>
 					          </md-select>
 						</div>

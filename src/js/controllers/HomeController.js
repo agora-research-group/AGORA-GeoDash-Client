@@ -30,6 +30,7 @@
                 , header: {'content-type':'application/json'}
             }).success(function (response) {
             	$scope.properties = response;
+            	$scope.selectedProperty = $scope.properties[0];
             	$scope.complete();
             	$scope.optShow = true;
             }).error(function (error) {
@@ -91,7 +92,7 @@
 	    	$http({
 	            url: 'http://localhost:8080/sensor/getObservation'
 	                , method: 'POST'
-	                , data: {id: $scope.selSensor.id, sDate: $scope.sDateObs, eDate: $scope.eDateObs}
+	                , data: {id: $scope.selSensor.id, sDate: $scope.sDateObs, eDate: $scope.eDateObs, property: $scope.selectedProperty.stype}
 	                , header: {'content-type':'application/json'}
 	            }).success(function (response) {
 	            	$scope.observations = response;
@@ -148,7 +149,7 @@
 			      plotOptions: {
 			        series: {
 			          stacking: ''
-			        }
+			        },
 			      }
 			    },
 			    xAxis: { 
@@ -291,6 +292,8 @@
 			if (selected.length) {
 				selected.forEach(function(feature) {
 					feature = feature;
+					$scope.sDateObs = new Date();
+					$scope.eDateObs = new Date();
 					getSensor(feature, $http, $scope);
 				});
 			} else {
