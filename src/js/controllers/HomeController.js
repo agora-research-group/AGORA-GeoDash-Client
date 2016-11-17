@@ -49,6 +49,19 @@
     	});
 	}
 
+	var WORLD_DIM = { height: 256, width: 256 };
+    var ZOOM_MAX = 21;
+
+    function latRad(lat) {
+        var sin = Math.sin(lat * Math.PI / 180);
+        var radX2 = Math.log((1 + sin) / (1 - sin)) / 2;
+        return Math.max(Math.min(radX2, Math.PI), -Math.PI) / 2;
+    }
+
+    function zoom(mapPx, worldPx, fraction) {
+        return Math.floor(Math.log(mapPx / worldPx / fraction) / Math.LN2);
+    }
+
 	function HomeController($scope, $http, $log, cfpLoadingBar, $mdDialog) {
 		$log.debug('HomeController');
 		
@@ -332,10 +345,9 @@
 				function(response) {
 					return response.data.results.map(function(item) {
 						var lct = item.geometry.location;
-						map.getView().setCenter(
-								ol.proj.transform([ lct.lng, lct.lat ],
+						map.getView().setCenter(ol.proj.transform([ lct.lng, lct.lat ],
 										'EPSG:4326', 'EPSG:3857'));
-						map.getView().setZoom(5);
+						map.getView().setZoom(10);
 					});
 				});
 		};
