@@ -61,7 +61,7 @@
 		$scope.eDateObs = new Date();
 		$scope.observations = [];
 		
-		list($scope, $http);
+//		list($scope, $http);
 		
 		$scope.start = function() {
 	      cfpLoadingBar.start();
@@ -92,8 +92,12 @@
 		          templateUrl: 'templates/configure_sensor.tmpl.html',
 		          parent: angular.element(document.body),
 		          targetEvent: ev,
-		          clickOutsideToClose:true,
+		          clickOutsideToClose:false,
 		          controller: 'ConfigureSensorController',
+		          locals: {
+		        	  feature: $scope.selSensor,
+		        	  fProperties: $scope.properties,
+		          },
 		        });
 	    }
 	    
