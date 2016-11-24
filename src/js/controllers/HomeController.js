@@ -220,9 +220,12 @@
 
 		var selectDrill = new ol.style.Style({
 			stroke : new ol.style.Stroke({
-				color : '#ff0000',
-				width : 2
-			})
+				color : [123,166,180,0.2],
+				width : 3
+			}),
+			fill: new ol.style.Fill({
+	          color: [163, 163, 194, 0.3]
+	        }),
 		});
 
 		var selectSensor = new ol.style.Style({
@@ -235,9 +238,12 @@
 
 		var defaultDrill = new ol.style.Style({
 			stroke : new ol.style.Stroke({
-				color : '#0000ff',
-				width : 2
-			})
+				color : [0, 0, 0, 1],
+				width : 4
+			}),
+			fill: new ol.style.Fill({
+	          color: [71, 71, 107, 0.3]
+	        }),
 		});
 
 		var defaultSensor = new ol.style.Style({
@@ -253,6 +259,7 @@
 			title : 'Regions',
 			source : regionsSource,
 			style : defaultDrill,
+			opacity: 0.15,
 		});
 		
 		var statesSource = new ol.source.Vector();
@@ -261,6 +268,7 @@
 			source : statesSource,
 			style : defaultDrill,
 			visible: false,
+			opacity: 0.15,
 		});
 		
 		var citiesSource = new ol.source.Vector();
@@ -269,6 +277,7 @@
 			source : citiesSource,
 			style : defaultDrill,
 			visible: false,
+			opacity: 0.15,
 		});
 
 		var cemadenSource = new ol.source.Vector();
