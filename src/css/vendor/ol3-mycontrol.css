@@ -1,0 +1,95 @@
+.ol3-mycontrol.shown.ol-control {
+    background-color: transparent;
+}
+
+.ol3-mycontrol.shown.ol-control:hover {
+    background-color: transparent;
+}
+
+.ol3-mycontrol {
+    position: absolute;
+    top: 4em;
+    right: 0.5em;
+    text-align: left;
+}
+
+.ol3-mycontrol.shown {
+    bottom: 3em;
+}
+
+.ol3-mycontrol .panel {
+    padding: 0 1em 0 0;
+    margin: 0;
+    border: 4px solid #eee;
+    border-radius: 4px;
+    background-color: white;
+    display: none;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.ol3-mycontrol.shown .panel {
+    display: block;
+}
+
+.ol3-mycontrol button {
+    float: right;
+    width: 28px;
+    height: 28px;
+    background-image: url("/AGORA-GeoDash-client/src/imgs/openlayers/drillup.png");
+    background-repeat: no-repeat;
+    background-position: 0px;
+    background-color: white;
+    border: none;
+    -webkit-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
+	box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.75);
+}
+
+.ol3-mycontrol.shown button {
+    display: none;
+}
+
+.ol3-mycontrol button:focus, .ol3-mycontrol button:hover {
+    background-color: white;
+}
+
+.ol3-mycontrol ul {
+    padding-left: 1em;
+    list-style: none;
+}
+
+.ol3-mycontrol li.group {
+    padding-top: 5px;
+}
+
+.ol3-mycontrol li.group > label {
+    font-weight: bold;
+}
+
+.ol3-mycontrol li.layer {
+    display: table;
+}
+
+.ol3-mycontrol li.layer label, .ol3-mycontrol li.layer input {
+    display: table-cell;
+    vertical-align: sub;
+}
+
+.ol3-mycontrol input {
+    margin: 4px;
+}
+
+.ol3-mycontrol.touch ::-webkit-scrollbar {
+    width: 4px;
+}
+
+.ol3-mycontrol.touch ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+.ol3-mycontrol.touch ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}

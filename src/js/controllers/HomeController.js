@@ -5,44 +5,6 @@
 	angular.module('agora-geodash')
 			.controller('HomeController', HomeController);
 
-	function getLayer(feature, map) {
-		var this_ = feature, layer_, layersToLookFor = [];
-		/**
-		 * Populates array layersToLookFor with only layers that have
-		 * features
-		 */
-		var check = function(layer) {
-			var source = layer.getSource();
-			if (source instanceof ol.source.Vector) {
-				var features = source.getFeatures();
-				if (features.length > 0) {
-					layersToLookFor.push({
-						layer : layer,
-						features : features
-					});
-				}
-			}
-		};
-		// loop through map layers
-		map.getLayers().forEach(function(layer) {
-			if (layer instanceof ol.layer.Group) {
-				layer.getLayers().forEach(check);
-			} else {
-				check(layer);
-			}
-		});
-		layersToLookFor.forEach(function(obj) {
-			var found = obj.features.some(function(feature) {
-				return this_ === feature;
-			});
-			if (found) {
-				// this is the layer we want
-				layer_ = obj.layer;
-			}
-		});
-		return layer_.U.title;
-	};
-	
 	function getSensor(feature, $http, $scope) {
 		$scope.start();
 
@@ -83,6 +45,7 @@
 	function HomeController($scope, $http, $log, cfpLoadingBar, $mdDialog) {
 		$log.debug('HomeController');
 
+		$scope.myControl = new app.CustomToolbarControl();
 		$scope.selSensor = null;
 		$scope.decisions = [];
 		$scope.selectedDecision = null;
@@ -309,9 +272,13 @@
 			controls : ol.control.defaults({
 				zoom : false,
 				attribution : false,
+				attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+			      collapsible: false
+			    })
 			}).extend([ new ol.control.Zoom({
 				className : 'custom-zoom'
-			}), new ol.control.LayerSwitcher(), ]),
+			}), new ol.control.LayerSwitcher(), 
+			]),
 			overlays: [overlay],
 			layers : [ new ol.layer.Group({
 				'title' : 'Base maps',
@@ -332,112 +299,13 @@
 				minZoom : 4,
 			}),
 		});
-
-		// --
-		var f = ol.format.ogc.filter;
-		var featureRequest = new ol.format.WFS().writeGetFeature({
-			srsName : 'EPSG:3857',
-			featureNS : 'http://www.agora.icmc.usp.br/agora',
-			featurePrefix : 'agora',
-			featureTypes : [ 'cemaden_stations' ],
-			outputFormat : 'application/json',
-			geometryName : 'Point',
-			filter : ol.format.ogc.filter.equalTo('stype', 'P')
-		});
-
-		fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-			method : 'POST',
-			body : new XMLSerializer().serializeToString(featureRequest)
-		}).then(function(response) {
-			return response.json();
-		}).then(function(json) {
-			var features = new ol.format.GeoJSON().readFeatures(json);
-			cemadenSource.addFeatures(features);
-		});
-
-		// --
-		var f = ol.format.ogc.filter;
-		var featureRequest = new ol.format.WFS().writeGetFeature({
-			srsName : 'EPSG:3857',
-			featureNS : 'http://www.agora.icmc.usp.br/agora',
-			featurePrefix : 'agora',
-			featureTypes : [ 'cemaden_stations' ],
-			outputFormat : 'application/json',
-			geometryName : 'Point',
-			filter : ol.format.ogc.filter.equalTo('stype', 'H')
-		});
-
-		fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-			method : 'POST',
-			body : new XMLSerializer().serializeToString(featureRequest)
-		}).then(function(response) {
-			return response.json();
-		}).then(function(json) {
-			var features = new ol.format.GeoJSON().readFeatures(json);
-			cemadenHySource.addFeatures(features);
-		});
-
-		// --
-		var f = ol.format.ogc.filter;
-		var featureRequest = new ol.format.WFS().writeGetFeature({
-			srsName : 'EPSG:3857',
-			featureNS : 'http://www.agora.icmc.usp.br/agora',
-			featurePrefix : 'agora',
-			featureTypes : [ 'regioes' ],
-			outputFormat : 'application/json',
-		});
-
-		fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-			method : 'POST',
-			body : new XMLSerializer().serializeToString(featureRequest)
-		}).then(function(response) {
-			return response.json();
-		}).then(function(json) {
-			var features = new ol.format.GeoJSON().readFeatures(json);
-			regionsSource.addFeatures(features);
-		});
 		
-		// --
-		var f = ol.format.ogc.filter;
-		var featureRequest = new ol.format.WFS().writeGetFeature({
-			srsName : 'EPSG:3857',
-			featureNS : 'http://www.agora.icmc.usp.br/agora',
-			featurePrefix : 'agora',
-			featureTypes : [ 'estados' ],
-			outputFormat : 'application/json',
-		});
-
-		fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-			method : 'POST',
-			body : new XMLSerializer().serializeToString(featureRequest)
-		}).then(function(response) {
-			return response.json();
-		}).then(function(json) {
-			var features = new ol.format.GeoJSON().readFeatures(json);
-			statesSource.addFeatures(features);
-		});
+		getFeatures(null, "regioes", regionsSource, null, null);
+		getFeatures(null, "estados", statesSource, null, null);
+		getFeatures(null, "municipios", citiesSource, null, null);
+		getFeatures(ol.format.ogc.filter.equalTo('stype', 'H'), "cemaden_stations", cemadenHySource, null, null);
+		getFeatures(ol.format.ogc.filter.equalTo('stype', 'P'), "cemaden_stations", cemadenSource, null, null);
 		
-		// --
-		var f = ol.format.ogc.filter;
-		var featureRequest = new ol.format.WFS().writeGetFeature({
-			srsName : 'EPSG:3857',
-			featureNS : 'http://www.agora.icmc.usp.br/agora',
-			featurePrefix : 'agora',
-			featureTypes : [ 'municipios' ],
-			outputFormat : 'application/json',
-		});
-
-		fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-			method : 'POST',
-			body : new XMLSerializer().serializeToString(featureRequest)
-		}).then(function(response) {
-			return response.json();
-		}).then(function(json) {
-			var features = new ol.format.GeoJSON().readFeatures(json);
-			citiesSource.addFeatures(features);
-		});
-
-		// select interaction working on "click"
 		var select = new ol.interaction.Select({
 			condition : ol.events.condition.singleClick,
 			layers : [ cemaden, cemadenHy, regions, states, cities ],
@@ -463,247 +331,73 @@
 						getSensor(feature, $http, $scope);
 					} else if (layer == "Regions" ) {
 						
-						var fr = new ol.format.WFS().writeGetFeature({
-							srsName : 'EPSG:3857',
-							featureNS : 'http://www.agora.icmc.usp.br/agora',
-							featurePrefix : 'agora',
-							featureTypes : [ 'estados' ],
-							outputFormat : 'application/json',
-							filter : ol.format.ogc.filter.equalTo('regiao_id', feature.U.id)
-						});
-							
+						map.addControl($scope.myControl);
+						
 						$scope.start();
-						fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-							method : 'POST',
-							body : new XMLSerializer().serializeToString(fr)
-						}).then(function(response) {
-							return response.json();
-						}).then(function(json) {
-							var f = new ol.format.GeoJSON().readFeatures(json);
-							statesSource.clear();
-							statesSource.addFeatures(f);
-							states.setVisible(true);
-							regions.setVisible(false);
-							$scope.complete();
-							
-							var extent = ol.extent.createEmpty();
-							ol.extent.extend(extent, states.getSource().getExtent());
-							map.getView().fit(extent, map.getSize());
-						});
+						statesSource.clear();
+						getFeatures(ol.format.ogc.filter.equalTo('regiao_id', feature.U.id), "estados", statesSource, null, map);
+						states.setVisible(true);
+						regions.setVisible(false);
+						$scope.complete();
 					} else if (layer == "States" ) {
 						
-						var fcr = new ol.format.WFS().writeGetFeature({
-							srsName : 'EPSG:3857',
-							featureNS : 'http://www.agora.icmc.usp.br/agora',
-							featurePrefix : 'agora',
-							featureTypes : [ 'municipios' ],
-							outputFormat : 'application/json',
-							filter : ol.format.ogc.filter.equalTo('estado_id', feature.U.id)
-						});
-
 						$scope.start();
-						fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-							method : 'POST',
-							body : new XMLSerializer().serializeToString(fcr)
-						}).then(function(response) {
-							return response.json();
-						}).then(function(json) {
-							var fs = new ol.format.GeoJSON().readFeatures(json);
-							citiesSource.clear();
-							citiesSource.addFeatures(fs);
-							cities.setVisible(true);
-							states.setVisible(false);
-							
-							$scope.complete();
-							
-							var extent1 = ol.extent.createEmpty();
-							ol.extent.extend(extent1, cities.getSource().getExtent());
-							map.getView().fit(extent1, map.getSize());
-						});
-					} else if (layer == "Cities" ) {
+						citiesSource.clear();
+						getFeatures(ol.format.ogc.filter.equalTo('estado_id', feature.U.id), "municipios", citiesSource, null, map);
+						cities.setVisible(true);
+						states.setVisible(false);
+						$scope.complete();
 						
-						console.log(feature.U.codigo_ibg);
+					} else if (layer == "Cities" ) {
 						
 						var featuresA = [];
 						featuresA.push(feature);
 						
 						$scope.start();
-						var fcr = new ol.format.WFS().writeGetFeature({
-							srsName : 'EPSG:3857',
-							featureNS : 'http://www.agora.icmc.usp.br/agora',
-							featurePrefix : 'agora',
-							featureTypes : [ 'cemaden_stations' ],
-							outputFormat : 'application/json',
-							filter : ol.format.ogc.filter.and (
-								ol.format.ogc.filter.equalTo('codigo_ibg', feature.U.codigo_ibg),
-								ol.format.ogc.filter.equalTo('stype', 'P')
-							),
-						});
-
-						$scope.start();
-						fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-							method : 'POST',
-							body : new XMLSerializer().serializeToString(fcr)
-						}).then(function(response) {
-							return response.json();
-						}).then(function(json) {
-							var fs = new ol.format.GeoJSON().readFeatures(json);
-							cemadenSource.clear();
-							cemadenSource.addFeatures(fs);
-							cities.setVisible(false);
-							cemaden.setVisible(true);
-						});
+						cemadenSource.clear();
+						getFeatures(ol.format.ogc.filter.and (
+							ol.format.ogc.filter.equalTo('codigo_ibg', feature.U.codigo_ibg),
+							ol.format.ogc.filter.equalTo('stype', 'P')
+						), "cemaden_stations", cemadenSource, null);
 						
-						$scope.start();
-						var fcr = new ol.format.WFS().writeGetFeature({
-							srsName : 'EPSG:3857',
-							featureNS : 'http://www.agora.icmc.usp.br/agora',
-							featurePrefix : 'agora',
-							featureTypes : [ 'cemaden_stations' ],
-							outputFormat : 'application/json',
-							filter : ol.format.ogc.filter.and (
-								ol.format.ogc.filter.equalTo('codigo_ibg', feature.U.codigo_ibg),
-								ol.format.ogc.filter.equalTo('stype', 'H')
-							),
-						});
-
-						$scope.start();
-						fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-							method : 'POST',
-							body : new XMLSerializer().serializeToString(fcr)
-						}).then(function(response) {
-							return response.json();
-						}).then(function(json) {
-							var fs = new ol.format.GeoJSON().readFeatures(json);
-							cemadenHySource.clear();
-							cemadenHySource.addFeatures(fs);
-							cemadenHy.setVisible(true);
-							
-							$scope.complete();
-						});
+						cemadenHySource.clear();
+						getFeatures(ol.format.ogc.filter.and (
+							ol.format.ogc.filter.equalTo('codigo_ibg', feature.U.codigo_ibg),
+							ol.format.ogc.filter.equalTo('stype', 'H')
+						), "cemaden_stations", cemadenHySource, null);
+						
+						cities.setVisible(false);
+						cemaden.setVisible(true);
+						cemadenHy.setVisible(true);
+						
+						$scope.complete();
 						
 						map.getView().fit(feature.getGeometry(), map.getSize());
 					}
 				});
 			} else {
-				$scope.$apply(function() {
-					$scope.selSensor = null;
-					$scope.sDateObs = new Date();
-					$scope.eDateObs = new Date();
-					$scope.optShow = false;
-					
-					// --
-					var f = ol.format.ogc.filter;
-					var featureRequest = new ol.format.WFS().writeGetFeature({
-						srsName : 'EPSG:3857',
-						featureNS : 'http://www.agora.icmc.usp.br/agora',
-						featurePrefix : 'agora',
-						featureTypes : [ 'regioes' ],
-						outputFormat : 'application/json',
-					});
-
-					fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-						method : 'POST',
-						body : new XMLSerializer().serializeToString(featureRequest)
-					}).then(function(response) {
-						return response.json();
-					}).then(function(json) {
-						var features = new ol.format.GeoJSON().readFeatures(json);
-						regionsSource.addFeatures(features);
-					});
-					
-					// --
-					var f = ol.format.ogc.filter;
-					var featureRequest = new ol.format.WFS().writeGetFeature({
-						srsName : 'EPSG:3857',
-						featureNS : 'http://www.agora.icmc.usp.br/agora',
-						featurePrefix : 'agora',
-						featureTypes : [ 'estados' ],
-						outputFormat : 'application/json',
-					});
-
-					fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-						method : 'POST',
-						body : new XMLSerializer().serializeToString(featureRequest)
-					}).then(function(response) {
-						return response.json();
-					}).then(function(json) {
-						var features = new ol.format.GeoJSON().readFeatures(json);
-						statesSource.addFeatures(features);
-					});
-					
-					// --
-					var f = ol.format.ogc.filter;
-					var featureRequest = new ol.format.WFS().writeGetFeature({
-						srsName : 'EPSG:3857',
-						featureNS : 'http://www.agora.icmc.usp.br/agora',
-						featurePrefix : 'agora',
-						featureTypes : [ 'municipios' ],
-						outputFormat : 'application/json',
-					});
-
-					fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-						method : 'POST',
-						body : new XMLSerializer().serializeToString(featureRequest)
-					}).then(function(response) {
-						return response.json();
-					}).then(function(json) {
-						var features = new ol.format.GeoJSON().readFeatures(json);
-						citiesSource.addFeatures(features);
-					});
-					
-					var f = ol.format.ogc.filter;
-					var featureRequest = new ol.format.WFS().writeGetFeature({
-						srsName : 'EPSG:3857',
-						featureNS : 'http://www.agora.icmc.usp.br/agora',
-						featurePrefix : 'agora',
-						featureTypes : [ 'cemaden_stations' ],
-						outputFormat : 'application/json',
-						geometryName : 'Point',
-						filter : ol.format.ogc.filter.equalTo('stype', 'P')
-					});
-
-					fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-						method : 'POST',
-						body : new XMLSerializer().serializeToString(featureRequest)
-					}).then(function(response) {
-						return response.json();
-					}).then(function(json) {
-						var features = new ol.format.GeoJSON().readFeatures(json);
-						cemadenSource.addFeatures(features);
-					});
-
-					var f = ol.format.ogc.filter;
-					var featureRequest = new ol.format.WFS().writeGetFeature({
-						srsName : 'EPSG:3857',
-						featureNS : 'http://www.agora.icmc.usp.br/agora',
-						featurePrefix : 'agora',
-						featureTypes : [ 'cemaden_stations' ],
-						outputFormat : 'application/json',
-						geometryName : 'Point',
-						filter : ol.format.ogc.filter.equalTo('stype', 'H')
-					});
-
-					fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
-						method : 'POST',
-						body : new XMLSerializer().serializeToString(featureRequest)
-					}).then(function(response) {
-						return response.json();
-					}).then(function(json) {
-						var features = new ol.format.GeoJSON().readFeatures(json);
-						cemadenHySource.addFeatures(features);
-					});
-					
-					cemaden.setVisible(false);
-					cemadenHy.setVisible(false);
-					cities.setVisible(false);
-					states.setVisible(false);
-					regions.setVisible(true);
-					
-					var extent1 = ol.extent.createEmpty();
-					ol.extent.extend(extent1, regions.getSource().getExtent());
-					map.getView().fit(extent1, map.getSize());
-				});
+				map.removeControl($scope.myControl);
+				
+				$scope.selSensor = null;
+				$scope.sDateObs = new Date();
+				$scope.eDateObs = new Date();
+				$scope.optShow = false;
+				
+				getFeatures(null, "regioes", regionsSource, null, null);
+				getFeatures(null, "estados", statesSource, null, null);
+				getFeatures(null, "municipios", citiesSource, null, null);
+				getFeatures(ol.format.ogc.filter.equalTo('stype', 'H'), "cemaden_stations", cemadenHySource, null, null);
+				getFeatures(ol.format.ogc.filter.equalTo('stype', 'P'), "cemaden_stations", cemadenSource, null, null);
+				
+				cemaden.setVisible(false);
+				cemadenHy.setVisible(false);
+				cities.setVisible(false);
+				states.setVisible(false);
+				regions.setVisible(true);
+				
+				var extent1 = ol.extent.createEmpty();
+				ol.extent.extend(extent1, regions.getSource().getExtent());
+				map.getView().fit(extent1, map.getSize());
 			};
 		});
 		
