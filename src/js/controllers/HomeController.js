@@ -520,7 +520,70 @@
 							ol.extent.extend(extent1, cities.getSource().getExtent());
 							map.getView().fit(extent1, map.getSize());
 						});
-					} 
+					} else if (layer == "Cities" ) {
+						
+						console.log(feature.U.codigo_ibg);
+						
+						var featuresA = [];
+						featuresA.push(feature);
+						
+						$scope.start();
+						var fcr = new ol.format.WFS().writeGetFeature({
+							srsName : 'EPSG:3857',
+							featureNS : 'http://www.agora.icmc.usp.br/agora',
+							featurePrefix : 'agora',
+							featureTypes : [ 'cemaden_stations' ],
+							outputFormat : 'application/json',
+							filter : ol.format.ogc.filter.and (
+								ol.format.ogc.filter.equalTo('codigo_ibg', feature.U.codigo_ibg),
+								ol.format.ogc.filter.equalTo('stype', 'P')
+							),
+						});
+
+						$scope.start();
+						fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
+							method : 'POST',
+							body : new XMLSerializer().serializeToString(fcr)
+						}).then(function(response) {
+							return response.json();
+						}).then(function(json) {
+							var fs = new ol.format.GeoJSON().readFeatures(json);
+							cemadenSource.clear();
+							cemadenSource.addFeatures(fs);
+							cities.setVisible(false);
+							cemaden.setVisible(true);
+						});
+						
+						$scope.start();
+						var fcr = new ol.format.WFS().writeGetFeature({
+							srsName : 'EPSG:3857',
+							featureNS : 'http://www.agora.icmc.usp.br/agora',
+							featurePrefix : 'agora',
+							featureTypes : [ 'cemaden_stations' ],
+							outputFormat : 'application/json',
+							filter : ol.format.ogc.filter.and (
+								ol.format.ogc.filter.equalTo('codigo_ibg', feature.U.codigo_ibg),
+								ol.format.ogc.filter.equalTo('stype', 'H')
+							),
+						});
+
+						$scope.start();
+						fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
+							method : 'POST',
+							body : new XMLSerializer().serializeToString(fcr)
+						}).then(function(response) {
+							return response.json();
+						}).then(function(json) {
+							var fs = new ol.format.GeoJSON().readFeatures(json);
+							cemadenHySource.clear();
+							cemadenHySource.addFeatures(fs);
+							cemadenHy.setVisible(true);
+							
+							$scope.complete();
+						});
+						
+						map.getView().fit(feature.getGeometry(), map.getSize());
+					}
 				});
 			} else {
 				$scope.$apply(function() {
@@ -589,6 +652,50 @@
 						citiesSource.addFeatures(features);
 					});
 					
+					var f = ol.format.ogc.filter;
+					var featureRequest = new ol.format.WFS().writeGetFeature({
+						srsName : 'EPSG:3857',
+						featureNS : 'http://www.agora.icmc.usp.br/agora',
+						featurePrefix : 'agora',
+						featureTypes : [ 'cemaden_stations' ],
+						outputFormat : 'application/json',
+						geometryName : 'Point',
+						filter : ol.format.ogc.filter.equalTo('stype', 'P')
+					});
+
+					fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
+						method : 'POST',
+						body : new XMLSerializer().serializeToString(featureRequest)
+					}).then(function(response) {
+						return response.json();
+					}).then(function(json) {
+						var features = new ol.format.GeoJSON().readFeatures(json);
+						cemadenSource.addFeatures(features);
+					});
+
+					var f = ol.format.ogc.filter;
+					var featureRequest = new ol.format.WFS().writeGetFeature({
+						srsName : 'EPSG:3857',
+						featureNS : 'http://www.agora.icmc.usp.br/agora',
+						featurePrefix : 'agora',
+						featureTypes : [ 'cemaden_stations' ],
+						outputFormat : 'application/json',
+						geometryName : 'Point',
+						filter : ol.format.ogc.filter.equalTo('stype', 'H')
+					});
+
+					fetch('http://www.agora.icmc.usp.br:8080/geoserver/agora/wfs', {
+						method : 'POST',
+						body : new XMLSerializer().serializeToString(featureRequest)
+					}).then(function(response) {
+						return response.json();
+					}).then(function(json) {
+						var features = new ol.format.GeoJSON().readFeatures(json);
+						cemadenHySource.addFeatures(features);
+					});
+					
+					cemaden.setVisible(false);
+					cemadenHy.setVisible(false);
 					cities.setVisible(false);
 					states.setVisible(false);
 					regions.setVisible(true);
