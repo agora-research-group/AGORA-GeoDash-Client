@@ -376,28 +376,30 @@
 					}
 				});
 			} else {
-				map.removeControl($scope.myControl);
-				
-				$scope.selSensor = null;
-				$scope.sDateObs = new Date();
-				$scope.eDateObs = new Date();
-				$scope.optShow = false;
-				
-				getFeatures(null, "regioes", regionsSource, null, null);
-				getFeatures(null, "estados", statesSource, null, null);
-				getFeatures(null, "municipios", citiesSource, null, null);
-				getFeatures(ol.format.ogc.filter.equalTo('stype', 'H'), "cemaden_stations", cemadenHySource, null, null);
-				getFeatures(ol.format.ogc.filter.equalTo('stype', 'P'), "cemaden_stations", cemadenSource, null, null);
-				
-				cemaden.setVisible(false);
-				cemadenHy.setVisible(false);
-				cities.setVisible(false);
-				states.setVisible(false);
-				regions.setVisible(true);
-				
-				var extent1 = ol.extent.createEmpty();
-				ol.extent.extend(extent1, regions.getSource().getExtent());
-				map.getView().fit(extent1, map.getSize());
+				$scope.$apply(function() {
+					map.removeControl($scope.myControl);
+					
+					$scope.selSensor = null;
+					$scope.sDateObs = new Date();
+					$scope.eDateObs = new Date();
+					$scope.optShow = false;
+					
+					getFeatures(null, "regioes", regionsSource, null, null);
+					getFeatures(null, "estados", statesSource, null, null);
+					getFeatures(null, "municipios", citiesSource, null, null);
+					getFeatures(ol.format.ogc.filter.equalTo('stype', 'H'), "cemaden_stations", cemadenHySource, null, null);
+					getFeatures(ol.format.ogc.filter.equalTo('stype', 'P'), "cemaden_stations", cemadenSource, null, null);
+					
+					cemaden.setVisible(false);
+					cemadenHy.setVisible(false);
+					cities.setVisible(false);
+					states.setVisible(false);
+					regions.setVisible(true);
+					
+					var extent1 = ol.extent.createEmpty();
+					ol.extent.extend(extent1, regions.getSource().getExtent());
+					map.getView().fit(extent1, map.getSize());
+				});
 			};
 		});
 		
