@@ -295,6 +295,13 @@
 			style : defaultSensor,
 			visible: false,
 		});
+		
+		var container = document.getElementById('popup');
+		var content = document.getElementById('popup-content');
+		
+		var overlay = new ol.Overlay({
+			element: container
+		});
 
 		var map = new ol.Map({
 			target : 'map',
@@ -305,6 +312,7 @@
 			}).extend([ new ol.control.Zoom({
 				className : 'custom-zoom'
 			}), new ol.control.LayerSwitcher(), ]),
+			overlays: [overlay],
 			layers : [ new ol.layer.Group({
 				'title' : 'Base maps',
 				layers : [ new ol.layer.Tile({
@@ -435,7 +443,7 @@
 			layers : [ cemaden, cemadenHy, regions, states, cities ],
 			style : [ selectSensor, selectDrill ],
 		});
-
+		
 		map.addInteraction(select);
 
 		select.on('select', function(e) {
@@ -447,7 +455,6 @@
 				selected.forEach(function(feature) {
 					feature = feature;
 					layer = getLayer(feature, map);
-					console.info(layer);
 					
 					if (layer == "Rainfall Gauges" || layer == "Hydrological Stations") {
 						
@@ -455,8 +462,6 @@
 						$scope.eDateObs = new Date();
 						getSensor(feature, $http, $scope);
 					} else if (layer == "Regions" ) {
-						
-						console.log(feature.U.id);
 						
 						var fr = new ol.format.WFS().writeGetFeature({
 							srsName : 'EPSG:3857',
@@ -486,8 +491,6 @@
 							map.getView().fit(extent, map.getSize());
 						});
 					} else if (layer == "States" ) {
-						
-						console.log(feature.U.id);
 						
 						var fcr = new ol.format.WFS().writeGetFeature({
 							srsName : 'EPSG:3857',
@@ -594,6 +597,24 @@
 					ol.extent.extend(extent1, regions.getSource().getExtent());
 					map.getView().fit(extent1, map.getSize());
 				});
+			};
+		});
+		
+		map.on('pointermove', function (evt) {
+			var feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+				return feature;
+			});
+			if (feature) {
+				
+				if (feature.U.nome == undefined) {
+					content.innerHTML = feature.U.name + " - " + feature.U.city + "/" + feature.U.state;
+				} else {
+					content.innerHTML = feature.U.nome;
+				}
+				
+			    overlay.setPosition(evt.coordinate);
+			} else {
+				overlay.setPosition(undefined);
 			};
 		});
 

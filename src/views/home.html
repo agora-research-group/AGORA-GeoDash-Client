@@ -1,5 +1,10 @@
 <section ng-controller="HomeController as vm">
-	<div id="map" class="map" ng-model="mainMap"></div>
+	<div id="map" class="map" ng-model="mainMap">
+		<div id="popup" class="ol-popup">
+            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+            <div id="popup-content"></div>
+        </div>
+	</div>
 	<div id="opt-frame" class="opt-frame" ng-show="optShow"
 		ng-init="optShow=false">
 		<div id="opt" class="opt" style="width: 100%">

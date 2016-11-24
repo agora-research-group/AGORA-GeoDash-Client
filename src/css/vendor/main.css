@@ -97,22 +97,59 @@ html, body {
 /* ==========================================================================
    Map
    ========================================================================== */
+.ol-popup {
+	position: absolute;
+	background-color: white;
+	-webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+	filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+	padding: 15px;
+	border-radius: 10px;
+	border: 1px solid #cccccc;
+	bottom: 12px;
+	left: -50px;
+}
+
+.ol-popup:after, .ol-popup:before {
+	top: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.ol-popup:after {
+	border-top-color: white;
+	border-width: 10px;
+	left: 48px;
+	margin-left: -10px;
+}
+
+.ol-popup:before {
+	border-top-color: #cccccc;
+	border-width: 11px;
+	left: 48px;
+	margin-left: -11px;
+}
+
 .chart-wrapper {
- position: relative;
-    padding-bottom: 40%;
+	position: relative;
+	padding-bottom: 40%;
 }
 
 .chart-inner {
-position: absolute;
-    width: 100%; height: 100%;
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
 
 .menu-bar {
 	position: absolute;
 	top: 0px;
-    right: 0px;
-    padding-top: 9px;
-    padding-right: 3px;
+	right: 0px;
+	padding-top: 9px;
+	padding-right: 3px;
 }
 
 .map {
@@ -127,9 +164,9 @@ position: absolute;
 	width: 15%;
 	height: 100%;
 	top: 0px;
-    left: 0px;
-    z-index: 0;
-    -webkit-transition: all linear 0.2s;
+	left: 0px;
+	z-index: 0;
+	-webkit-transition: all linear 0.2s;
 	-moz-transition: all linear 0.2s;
 	-ms-transition: all linear 0.2s;
 	-o-transition: all linear 0.2s;
@@ -137,7 +174,7 @@ position: absolute;
 }
 
 .filter-box.ng-hide {
-  opacity: 0;
+	opacity: 0;
 }
 
 .filter-box-items {
@@ -160,9 +197,9 @@ position: absolute;
 	width: 100%;
 	height: 100%;
 	top: 0px;
-    right: 0px;
-    z-index: 2;
-    -webkit-transition: all linear 0.2s;
+	right: 0px;
+	z-index: 2;
+	-webkit-transition: all linear 0.2s;
 	-moz-transition: all linear 0.2s;
 	-ms-transition: all linear 0.2s;
 	-o-transition: all linear 0.2s;
@@ -170,7 +207,7 @@ position: absolute;
 }
 
 .web-settings.ng-hide {
-  opacity: 0;
+	opacity: 0;
 }
 
 .web-settings-menu {
@@ -207,7 +244,7 @@ position: absolute;
 	background-color: white;
 	height: 100%;
 	width: 100%;
-	z-index: 0;	
+	z-index: 0;
 	padding-left: 230px;
 	padding-top: 20px;
 }
@@ -217,12 +254,12 @@ position: absolute;
 }
 
 .settings-view-menu-top {
-	height: 80%; 
+	height: 80%;
 	position: relative;
 }
 
 .settings-view-menu-bottom {
-	height: 20%; 
+	height: 20%;
 	position: relative;
 }
 
@@ -233,15 +270,15 @@ position: absolute;
 }
 
 .web-settings-nu {
-	margin-left:auto; 
-	margin-right:0;
-	float:right;
+	margin-left: auto;
+	margin-right: 0;
+	float: right;
 	height: 100%;
 	position: absolute;
-	background-color: black; 
-	opacity: 0.2; 
+	background-color: black;
+	opacity: 0.2;
 	width: 100%;
-    z-index: 0;
+	z-index: 0;
 }
 
 .nav-bar {
@@ -334,7 +371,7 @@ position: absolute;
 .typeahead-demo .custom-popup-wrapper>.message {
 	padding: 10px 20px;
 	border-bottom: 1px solid #ddd;
-	color: #868686;	
+	color: #868686;
 }
 
 .typeahead-demo .custom-popup-wrapper>.dropdown-menu {
@@ -351,10 +388,9 @@ position: absolute;
 /* ==========================================================================
    Decision
    ========================================================================== */
-
 .chipsdemoCustomInputs md-content.autocomplete {
-  min-height: 200px;}
-
+	min-height: 200px;
+}
 
 /* ==========================================================================
    Helper classes
